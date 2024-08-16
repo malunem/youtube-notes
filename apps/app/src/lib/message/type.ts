@@ -60,5 +60,3 @@ export class NoHanlderError extends Error {
     super(`no handler for ${type}`);
   }
 }
-
-export const PORT_READY_EVENT = "mx-port-ready";

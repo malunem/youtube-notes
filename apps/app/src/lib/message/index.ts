@@ -3,13 +3,13 @@ import { createEventEmitter } from "@/lib/emitter";
 import type { InvokeMessage, InvokeRespMessage } from "./type";
 import {
   NoHanlderError,
-  PORT_READY_EVENT,
   genRequsetMessage,
   genSentMessage,
   isInvokeMessage,
   isInvokeRespMessage,
   isSentMessage,
 } from "./type";
+import { PORT_READY_EVENT } from "../remote-player/const";
 
 type ActionResult = {
   value: any;

@@ -13,7 +13,7 @@ import { ButtonComponent, Notice } from "obsidian";
 import type { WebviewElement } from "@/components/webview";
 import { MediaURL } from "@/info/media-url";
 import { MediaHost } from "@/info/supported";
-import { GET_PORT_TIMEOUT, PORT_MESSAGE } from "@/lib/remote-player/const";
+import { GET_PORT_TIMEOUT, PORT_MESSAGE_ID_PLACEHOLDER } from "@/lib/remote-player/const";
 import { LoginModal } from "@/login/modal";
 import { plugins } from "@/web/plugin";
 import { replaceEnv } from "@/web/preload/const";
@@ -27,6 +27,7 @@ import { evalInWebview } from "./lib/inline-eval";
 import { WebviewLoadError, webviewErrorMessage } from "./net-err";
 import type { MediaPictureInPictureAdapter } from "./pip";
 import { WebpagePictureInPicture } from "./pip";
+import { nanoid } from "nanoid";
 
 const { createScope, onDispose, scoped } = Maverick;
 
@@ -49,7 +50,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
         this._port,
         _ctx,
         // don't have whitelist, always require user gesture
-        () => this.userGesture(true),
+        () => this.userGesture(true)
       );
     }, this.scope);
   }
@@ -79,7 +80,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
             modal.setUrl(url);
           },
         });
-      }),
+      })
     );
   }
 
@@ -173,7 +174,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
           await this.media.methods.loadPlugin(replaceEnv(plugins[host]));
           resolve();
         },
-        { once: true },
+        { once: true }
       );
       const timeoutId = setTimeout(() => {
         unsub();
@@ -183,7 +184,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
 
       const { port1: portLocal, port2: portRemote } = new MessageChannel();
       this._port.load(portLocal);
-      webview.contentWindow.postMessage(PORT_MESSAGE, "*", [portRemote]);
+      webview.contentWindow.postMessage(this.#portMessageId, "*", [portRemote]);
     });
   }
 
@@ -250,10 +251,10 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
                       navigator.clipboard.writeText(err.url);
                       new Notice("URL copied to clipboard.");
                     });
-                  },
-                ),
+                  }
+                )
               );
-            }),
+            })
           );
         } else {
           throw err;
@@ -274,7 +275,11 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
     });
     this._updateTitle(evt);
     // prepare to recieve port, handle plugin load
-    await evalInWebview(init, webview);
+    await evalInWebview(
+      // replace placeholder with actual port message id
+      init.replaceAll(`"${PORT_MESSAGE_ID_PLACEHOLDER}"`, JSON.stringify(this.#portMessageId)),
+      webview
+    );
     await this.loadPlugin(this.currentWebHost);
   };
 
@@ -288,6 +293,8 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
       webview.removeEventListener("page-title-updated", onPageTitleUpdated);
     });
   }
+
+  #portMessageId = nanoid();
 
   togglePlayReady(toggle?: boolean) {
     if (typeof toggle === "undefined") {
@@ -355,11 +362,11 @@ function notifyLogin() {
           p.appendText('- the "Login" command');
           p.createEl("br");
           p.appendText("- the entry in settings tab");
-        },
+        }
       );
       e.appendText("Click to dismiss this notice.");
     }),
-    0,
+    0
   );
   localStorage.setItem(label, "1");
 }
@@ -419,7 +426,7 @@ function noticeWithOK({
         }
       });
     }),
-    timeout,
+    timeout
   );
   return notice;
 }

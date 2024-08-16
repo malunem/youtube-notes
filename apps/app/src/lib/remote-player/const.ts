@@ -1,7 +1,7 @@
 export const GET_PORT_TIMEOUT = 5e3;
 
-export const PORT_MESSAGE = "mx-port";
-export const PORT_READY_MESSAGE = "mx-port-ready";
+export const PORT_READY_EVENT = "mx-port-ready";
+export const PORT_MESSAGE_ID_PLACEHOLDER = "__MX_PORT_MESSAGE__";
 
 declare module "obsidian" {
   interface App {
