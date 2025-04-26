@@ -39,5 +39,14 @@ export function getMediaInfoID(mediaInfo: MediaInfo) {
   if (isFileMediaInfo(mediaInfo)) {
     return `file:${mediaInfo.file.path}`;
   }
-  return `url:${mediaInfo.jsonState.source}`;
+  // For YouTube URLs, normalize to the standard watch URL format
+  const source = mediaInfo.jsonState.source;
+  if (source.includes('youtube.com') || source.includes('youtu.be')) {
+    const url = new URL(source);
+    const videoId = url.searchParams.get('v') || url.pathname.split('/').pop();
+    if (videoId) {
+      return `url:https://www.youtube.com/watch?v=${videoId}`;
+    }
+  }
+  return `url:${source}`;
 }

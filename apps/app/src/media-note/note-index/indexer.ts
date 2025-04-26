@@ -54,7 +54,9 @@ export class MediaNoteIndex extends Component {
   }
 
   findNote(media: MediaInfo): TFile | null {
-    return this.mediaToNoteIndex.get(getMediaInfoID(media)) ?? null;
+    const mediaID = getMediaInfoID(media);
+    const note = this.mediaToNoteIndex.get(mediaID) ?? null;
+    return note;
   }
   findMedia(note: TFile) {
     return this.noteToMediaIndex.get(note.path);
@@ -69,8 +71,10 @@ export class MediaNoteIndex extends Component {
       vault: this.app.vault,
       plugin: this.plugin,
     };
+    let noteCount = 0;
     for (const { file, meta } of iterateMediaNote(ctx)) {
       this.addMediaNote(meta, file);
+      noteCount++;
     }
     this.registerEvent(
       this.app.metadataCache.on("changed", (file) => {
@@ -120,6 +124,7 @@ export class MediaNoteIndex extends Component {
     mediaInfo: MediaInfo,
     newNoteInfo: NewNoteInfo,
   ): Promise<TFile> {
+
     const note = this.findNote(mediaInfo);
     if (note) return note;
     const title = normalizeFilename(newNoteInfo.title);
@@ -191,21 +196,36 @@ export class MediaNoteIndex extends Component {
   }
   addMediaNote(meta: ParsedMediaNoteMetadata, newNote: TFile) {
     const mediaID = getMediaInfoID(meta.src);
+    
+
     const prevNote = this.mediaToNoteIndex.get(mediaID);
-    // skip if note to add is created after existing note
-    if (
-      prevNote &&
-      prevNote !== newNote &&
-      prevNote.stat.ctime <= newNote.stat.ctime
-    )
+    if (prevNote && prevNote !== newNote) {
+  
       return;
+    }
+
     this.noteToMediaIndex.set(newNote.path, meta.src);
     this.mediaToNoteIndex.set(mediaID, newNote);
-    this.transcript.add(newNote, meta.data.textTracks);
+    
   }
 
   onload(): void {
+    
+    // If metadata cache is already initialized, call onResolved immediately
+    if (this.app.metadataCache.initialized) {
+      this.onResolved();
+      return;
+    }
+
+    // TODO: use a better way to wait for metadata cache
+    // Set a timeout to ensure we don't wait forever
+    const timeout = setTimeout(() => {
+      this.onResolved();
+    }, 5000);
+
     waitUntilMetaInited(this.app.metadataCache, this).then(() => {
+      clearTimeout(timeout);
+
       this.onResolved();
     });
   }
@@ -219,7 +239,9 @@ function* iterateMediaNote(ctx: {
   for (const file of iterateFiles(ctx.vault.getRoot())) {
     if (file.extension !== "md") continue;
     const meta = getMediaNoteMeta(file, ctx);
-    if (!meta) continue;
+    if (!meta) {
+      continue;
+    }
     yield { meta, file };
   }
 }

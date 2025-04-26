@@ -16,8 +16,11 @@ export function getMediaNoteMeta(
   file: TFile,
   { metadataCache, plugin }: { metadataCache: MetadataCache; plugin: YnPlugin },
 ): ParsedMediaNoteMetadata | null {
+  
   const meta = metadataCache.getFileCache(file);
-  if (!meta) return null;
+  if (!meta) {
+    return null;
+  }
   const ctx = { metadataCache, sourcePath: file.path, plugin };
 
   // prefer explicit typed media
@@ -25,7 +28,11 @@ export function getMediaNoteMeta(
     getField(mediaSourceFieldMap.video, meta, ctx) ??
     getField(mediaSourceFieldMap.audio, meta, ctx) ??
     getField(mediaSourceFieldMap.generic, meta, ctx);
-  if (!src) return null;
+  if (!src) {
+    return null;
+  }
+
+  
   return {
     src,
     get data() {
@@ -38,8 +45,16 @@ function getField(
   meta: CachedMetadata,
   ctx: { metadataCache: MetadataCache; sourcePath: string; plugin: YnPlugin },
 ): MediaInfo | null {
+  
   const { frontmatter, frontmatterLinks } = meta;
-  if (!frontmatter || !(key in frontmatter)) return null;
+  if (!frontmatter ) {
+    return null;
+  }
+ if (!(key in frontmatter)) {
+    return null;
+  }
+  
+
   const linkCache = frontmatterLinks?.find((link) => link.key === key);
   if (linkCache) {
     const { path: linkpath, subpath } = parseLinktext(linkCache.link);
@@ -59,5 +74,11 @@ function getField(
   }
   const content = frontmatter[key];
   if (typeof content !== "string") return null;
+
+   if (typeof content === "string") {
+    const result = ctx.plugin.resolveUrl(content);
+    return result;
+   }
+  
   return ctx.plugin.resolveUrl(content);
 }
