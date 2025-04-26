@@ -4,9 +4,9 @@
  */
 
 // Workaround for https://github.com/eslint/eslint/issues/3458 (re-export of @rushstack/eslint-patch)
-require("@mx/config/patch/modern-module-resolution");
+require("@yn/config/patch/modern-module-resolution");
 
-const { getDefaultIgnorePatterns } = require("@mx/config/helpers");
+const { getDefaultIgnorePatterns } = require("@yn/config/helpers");
 
 const typescriptOptions = {
   tsconfigRootDir: __dirname,
@@ -25,11 +25,11 @@ module.exports = {
   },
   ignorePatterns: [...getDefaultIgnorePatterns()],
   extends: [
-    "./node_modules/@mx/config/src/bases/typescript.js",
-    "./node_modules/@mx/config/src/bases/regexp.js",
+    "./node_modules/@yn/config/src/bases/typescript.js",
+    "./node_modules/@yn/config/src/bases/regexp.js",
     // Apply prettier and disable incompatible rules
-    "./node_modules/@mx/config/src/bases/prettier.js",
-    "./node_modules/@mx/config/src/bases/react.js",
+    "./node_modules/@yn/config/src/bases/prettier.js",
+    "./node_modules/@yn/config/src/bases/react.js",
   ],
   rules: {
     "react/no-unknown-property": ["error", { ignore: ["aria-label-delay"] }],

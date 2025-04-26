@@ -9,7 +9,7 @@ import { iterateFiles } from "@/lib/iterate-files";
 import { waitUntilResolve as waitUntilMetaInited } from "@/lib/meta-resolve";
 import { normalizeFilename } from "@/lib/norm";
 import type { PlayerComponent } from "@/media-view/base";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { TranscriptIndex } from "../../transcript/handle/indexer";
 import { mediaTitle } from "../title";
 import type { MediaSourceFieldType } from "./def";
@@ -31,7 +31,7 @@ declare module "obsidian" {
 }
 export class MediaNoteIndex extends Component {
   app;
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
     this.app = plugin.app;
     this.transcript = this.addChild(new TranscriptIndex(this.plugin));
@@ -105,7 +105,7 @@ export class MediaNoteIndex extends Component {
           return;
         }
         this.plugin.app.metadataCache.trigger(
-          "mx:transcript-changed",
+          "yn:transcript-changed",
           updated,
           getMediaInfoID(mediaInfo),
         );
@@ -120,7 +120,7 @@ export class MediaNoteIndex extends Component {
     mediaInfo: MediaInfo,
     newNoteInfo: NewNoteInfo,
   ): Promise<TFile> {
-    const note = this.plugin.mediaNote.findNote(mediaInfo);
+    const note = this.findNote(mediaInfo);
     if (note) return note;
     const title = normalizeFilename(newNoteInfo.title);
     const filename = `Media Note - ${title}`;
@@ -160,6 +160,8 @@ export class MediaNoteIndex extends Component {
       });
     }
   }
+
+
   async #createNewNote(
     filename: string,
     fm: (sourcePath: string) => Record<string, any>,
@@ -212,7 +214,7 @@ export class MediaNoteIndex extends Component {
 function* iterateMediaNote(ctx: {
   metadataCache: MetadataCache;
   vault: Vault;
-  plugin: MxPlugin;
+  plugin: YnPlugin;
 }) {
   for (const file of iterateFiles(ctx.vault.getRoot())) {
     if (file.extension !== "md") continue;
@@ -229,7 +231,7 @@ export function handleTrackUpdate(this: PlayerComponent) {
   });
   this.registerEvent(
     this.plugin.app.metadataCache.on(
-      "mx:transcript-changed",
+      "yn:transcript-changed",
       async (_, mediaID) => {
         const currMedia = this.getMediaInfo();
         if (!currMedia) return;
