@@ -1,10 +1,10 @@
 {
-  "id": "media-extended",
-  "name": "Media Extended",
-  "version": "3.2.6",
+  "id": "youtube-notes",
+  "name": "Youtube Notes",
+  "version": "1.0.0",
   "minAppVersion": "1.5.7",
-  "description": "Media(Video/Audio) Playback Enhancement for Obsidian.md",
-  "author": "AidenLx",
-  "authorUrl": "https://github.com/AidenLx/",
+  "description": "Youtube Notes plugin for Obsidian",
+  "author": "malunem",
+  "authorUrl": "https://github.com/malunem",
   "isDesktopOnly": true
 }

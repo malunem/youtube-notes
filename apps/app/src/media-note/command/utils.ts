@@ -11,7 +11,7 @@ import type {
 import { Keymap, MarkdownView } from "obsidian";
 import type { MediaInfo } from "@/info/media-info";
 import type { MediaView } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { isMediaLeaf } from "../leaf-open";
 
 function checkCallbacks(
@@ -67,7 +67,7 @@ export function addMediaViewCommand(
       section?: string;
       menu?: boolean;
     },
-  plugin: MxPlugin,
+  plugin: YnPlugin,
 ): Command {
   const { app } = plugin;
   const cmd = plugin.addCommand({

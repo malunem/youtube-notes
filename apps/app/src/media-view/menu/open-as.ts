@@ -2,16 +2,16 @@
 import type { MenuItem, Menu } from "obsidian";
 import type { MediaURL } from "@/info/media-url";
 import type { RemoteMediaViewType } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 
 const mediaTypeDisplay: Record<
   RemoteMediaViewType,
   { label: string; icon: string }
 > = {
-  "mx-embed": { label: "iframe", icon: "code" },
-  "mx-url-audio": { label: "regular audio", icon: "headphones" },
-  "mx-url-video": { label: "regular video", icon: "film" },
-  "mx-webpage": { label: "webpage", icon: "globe" },
+  "yn-embed": { label: "iframe", icon: "code" },
+  "yn-url-audio": { label: "regular audio", icon: "headphones" },
+  "yn-url-video": { label: "regular video", icon: "film" },
+  "yn-webpage": { label: "webpage", icon: "globe" },
 };
 
 function setLabel(
@@ -37,7 +37,7 @@ export function openAsMenu(
     url: MediaURL;
     mode: "always" | "once";
     open?: boolean;
-    plugin: MxPlugin;
+    plugin: YnPlugin;
     targetViewTypes: RemoteMediaViewType[];
   },
 ) {
@@ -53,7 +53,7 @@ export function openAsMenu(
       }
       menu.addItem((item) =>
         setLabel(item, viewType)
-          .setSection("mx-link")
+          .setSection("yn-link")
           .onClick(async () => {
             await plugin.leafOpener.openMedia(url, undefined, {
               viewType,
@@ -69,12 +69,12 @@ export function openAsMenu(
       const matchUrl = item
         .setTitle("Always open this url as")
         .setIcon("external-link")
-        .setSection("mx-link")
+        .setSection("yn-link")
         .setSubmenu();
       targetViewTypes.forEach((viewType) => {
         matchUrl.addItem((item) =>
           setLabel(item, viewType, true)
-            .setSection("mx-link")
+            .setSection("yn-link")
             .onClick(async () => {
               plugin.urlViewType.setPreferred(
                 { protocol, hostname, pathname, port },
@@ -94,12 +94,12 @@ export function openAsMenu(
         const matchHostname = item
           .setTitle(`Always open ${host} as`)
           .setIcon("external-link")
-          .setSection("mx-link")
+          .setSection("yn-link")
           .setSubmenu();
         targetViewTypes.forEach((viewType) => {
           matchHostname.addItem((item) =>
             setLabel(item, viewType, true)
-              .setSection("mx-link")
+              .setSection("yn-link")
               .onClick(async () => {
                 plugin.urlViewType.setPreferred(
                   { protocol, hostname, port },

@@ -7,7 +7,7 @@ export function pipMenu(menu: Menu, player: MediaPlayerInstance) {
     menu.addItem((item) =>
       item
         .setTitle("Picture in Picture")
-        .setSection("mx-player")
+        .setSection("yn-player")
         .setIcon("picture-in-picture")
         .onClick(() => player.enterPictureInPicture()),
     );
@@ -16,7 +16,7 @@ export function pipMenu(menu: Menu, player: MediaPlayerInstance) {
       item
         .setTitle("Exit Picture in Picture")
         .setIcon("picture-in-picture-2")
-        .setSection("mx-player")
+        .setSection("yn-player")
         .onClick(() => player.exitPictureInPicture()),
     );
   }

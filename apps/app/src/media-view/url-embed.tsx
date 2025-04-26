@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { MediaViewContext, createMediaViewStore } from "@/components/context";
 import { Player } from "@/components/player";
 import type { MediaURL } from "@/info/media-url";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { type PlayerComponent } from "./base";
 
 export class MediaRenderChild
@@ -15,10 +15,10 @@ export class MediaRenderChild
   get player() {
     return this.store.getState().player;
   }
-  constructor(public containerEl: HTMLElement, public plugin: MxPlugin) {
+  constructor(public containerEl: HTMLElement, public plugin: YnPlugin) {
     super(containerEl);
     this.store = createMediaViewStore(plugin);
-    containerEl.addClasses(["mx", "custom", "mx-media-embed"]);
+    containerEl.addClasses(["yn", "custom", "yn-media-embed"]);
   }
 
   getMediaInfo() {

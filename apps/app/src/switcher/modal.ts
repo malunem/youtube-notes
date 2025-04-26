@@ -8,7 +8,7 @@ import path from "@/lib/path";
 import { pickMediaFile } from "@/lib/picker";
 import { getFsPromise } from "@/lib/require";
 import { toURL } from "@/lib/url";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { FileProtocolModal } from "./protocol-select";
 
 const avId = /^av(?<id>\d+)$/i;
@@ -46,7 +46,7 @@ function toURLGuess(query: string): URL | null {
 }
 
 export class MediaSwitcherModal extends SuggestModal<MediaInfo> {
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super(plugin.app);
     this.inputEl.addEventListener("drop", (evt) => {
       if (!evt.dataTransfer) return;
@@ -173,7 +173,7 @@ export class MediaSwitcherModal extends SuggestModal<MediaInfo> {
       const resolved = this.plugin.resolveUrl(
         url.href.replace(
           fileProtocol.url.replace(/\/*$/, "/"),
-          `mx://${fileProtocol.action}/`,
+          `yn://${fileProtocol.action}/`,
         ),
       );
       if (!resolved) {

@@ -8,16 +8,16 @@ import { vaildate } from "@/lib/lang/lang";
 import { enumerate } from "@/lib/must-include";
 import { pick, omit } from "@/lib/pick";
 import type { RemoteMediaViewType } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { BilibiliQuality } from "@/web/session/bilibili";
 
 export type OpenLinkBehavior = false | PaneType | "split-horizontal" | null;
 
-type MxSettingValues = {
+type YnSettingValues = {
   defaultVolume: number;
   urlMappingData: { appId: string; protocol: string; replace: string }[];
   devices: { appId: string; name: string }[];
-  defaultMxLinkClick: {
+  defaultYnLinkClick: {
     click: OpenLinkBehavior;
     alt: OpenLinkBehavior;
   };
@@ -38,11 +38,11 @@ type MxSettingValues = {
   screenshotFolderPath?: string;
   subtitleFolderPath?: string;
 };
-const settingKeys = enumerate<keyof MxSettingValues>()(
+const settingKeys = enumerate<keyof YnSettingValues>()(
   "defaultVolume",
   "urlMappingData",
   "devices",
-  "defaultMxLinkClick",
+  "defaultYnLinkClick",
   "linkHandler",
   "speedStep",
   "loadStrategy",
@@ -60,19 +60,19 @@ const settingKeys = enumerate<keyof MxSettingValues>()(
   "subtitleFolderPath",
 );
 
-const mxSettingsDefault = {
+const ynSettingsDefault = {
   defaultVolume: 80,
   urlMappingData: [],
   devices: [],
-  defaultMxLinkClick: {
+  defaultYnLinkClick: {
     click: "split",
     alt: "window",
   },
   linkHandler: {
-    "mx-embed": [],
-    "mx-url-audio": [],
-    "mx-url-video": [],
-    "mx-webpage": [],
+    "yn-embed": [],
+    "yn-url-audio": [],
+    "yn-url-video": [],
+    "yn-webpage": [],
   },
   enableSubtitle: false,
   loadStrategy: "eager",
@@ -84,7 +84,7 @@ const mxSettingsDefault = {
   biliDefaultQuality: BilibiliQuality.FHD,
   screenshotFormat: "image/webp",
   speedStep: 0.1,
-} satisfies MxSettingValues;
+} satisfies YnSettingValues;
 
 function getDefaultDeviceName() {
   if (Platform.isDesktopApp) {
@@ -113,7 +113,7 @@ function getDefaultDeviceName() {
   return "Unknown Device";
 }
 
-export type MxSettings = {
+export type YnSettings = {
   setDefaultVolume: (volume: number) => void;
   getUrlMapping: (protocol: string) => string | undefined;
   setUrlMapping: (protocol: string, replace: string) => void;
@@ -136,9 +136,9 @@ export type MxSettings = {
   setScreenshotQuality: (quality: number | null) => void;
   setTimestampOffset: (offset: number) => void;
   setInsertPosition: (pos: "before" | "after") => void;
-  getUrlMappingData: () => MxSettingValues["urlMappingData"];
-  setDefaultMxLinkBehavior: (click: OpenLinkBehavior) => void;
-  setMxLinkAltBehavior: (click: OpenLinkBehavior) => void;
+  getUrlMappingData: () => YnSettingValues["urlMappingData"];
+  setDefaultYnLinkBehavior: (click: OpenLinkBehavior) => void;
+  setYnLinkAltBehavior: (click: OpenLinkBehavior) => void;
   setLinkHandler: (pattern: URLMatchPattern, type: RemoteMediaViewType) => void;
   setLoadStrategy: (strategy: "play" | "eager") => void;
   setBiliDefaultQuality: (quality: BilibiliQuality) => void;
@@ -146,12 +146,12 @@ export type MxSettings = {
   setSubtitleFolder: (path: string | null) => void;
   load: () => Promise<void>;
   save: () => void;
-} & Omit<MxSettingValues, "urlMappingData">;
+} & Omit<YnSettingValues, "urlMappingData">;
 
-export function toUrlMap(data: MxSettingValues["urlMappingData"]) {
+export function toUrlMap(data: YnSettingValues["urlMappingData"]) {
   return new Map(data.map((x) => [`${x.appId}%${x.protocol}`, x.replace]));
 }
-export function toUrlMappingData(data: MxSettings["urlMapping"]) {
+export function toUrlMappingData(data: YnSettings["urlMapping"]) {
   return Array.from(data.entries())
     .map(([key, replace]) => {
       const [appId, protocol] = key.split("%");
@@ -160,16 +160,16 @@ export function toUrlMappingData(data: MxSettings["urlMapping"]) {
     .filter((x) => x.appId && x.protocol && x.replace);
 }
 
-export function createSettingsStore(plugin: MxPlugin) {
-  const save = debounce((_data: MxSettings) => {
+export function createSettingsStore(plugin: YnPlugin) {
+  const save = debounce((_data: YnSettings) => {
     const data = pick(_data, settingKeys);
     plugin.saveData({
       ...data,
       urlMappingData: _data.getUrlMappingData(),
-    } satisfies MxSettingValues);
+    } satisfies YnSettingValues);
   }, 1e3);
-  return createStore<MxSettings>((set, get) => ({
-    ...omit(mxSettingsDefault, ["urlMappingData"]),
+  return createStore<YnSettings>((set, get) => ({
+    ...omit(ynSettingsDefault, ["urlMappingData"]),
     setEnableSubtitle(enable) {
       set({ enableSubtitle: enable });
       save(get());
@@ -238,13 +238,13 @@ export function createSettingsStore(plugin: MxPlugin) {
       set({ timestampOffset: offset });
       save(get());
     },
-    setDefaultMxLinkBehavior: (click) => {
+    setDefaultYnLinkBehavior: (click) => {
       let alt: OpenLinkBehavior;
       if (click === "split" || click === "split-horizontal") alt = "window";
       else if (click === "window") alt = "tab";
       else if (click === "tab") alt = "split";
       else alt = null;
-      set({ defaultMxLinkClick: { click, alt } });
+      set({ defaultYnLinkClick: { click, alt } });
       save(get());
     },
     setTemplate(key, value) {
@@ -263,13 +263,13 @@ export function createSettingsStore(plugin: MxPlugin) {
       }
       save(get());
     },
-    setMxLinkAltBehavior: (click) => {
-      set(({ defaultMxLinkClick }) => ({
-        defaultMxLinkClick: { ...defaultMxLinkClick, alt: click },
+    setYnLinkAltBehavior: (click) => {
+      set(({ defaultYnLinkClick }) => ({
+        defaultYnLinkClick: { ...defaultYnLinkClick, alt: click },
       }));
       save(get());
     },
-    urlMapping: toUrlMap(mxSettingsDefault.urlMappingData),
+    urlMapping: toUrlMap(ynSettingsDefault.urlMappingData),
     setDefaultVolume: (volume: number) => {
       set({ defaultVolume: volume });
       save(get());
@@ -354,7 +354,7 @@ export function createSettingsStore(plugin: MxPlugin) {
       }
     },
     load: async () => {
-      const data: Partial<MxSettingValues> = await plugin.loadData();
+      const data: Partial<YnSettingValues> = await plugin.loadData();
       if (!data) return;
       const { urlMappingData, ...cfg } = pick(data, settingKeys);
       set({ ...cfg, urlMapping: toUrlMap(urlMappingData ?? []) });

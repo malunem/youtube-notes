@@ -1,9 +1,9 @@
 import { normalizePath, Notice, TFolder } from "obsidian";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 
 export async function getSaveFolder(
   folderPath: string | undefined,
-  { plugin, sourcePath }: { plugin: MxPlugin; sourcePath: string },
+  { plugin, sourcePath }: { plugin: YnPlugin; sourcePath: string },
 ): Promise<TFolder> {
   const { fileManager, vault } = plugin.app;
   if (!folderPath) {

@@ -29,7 +29,7 @@ export function webpageMenu(
         .setTitle(
           controls ? "Show website native controls" : "Hide website controls",
         )
-        .setSection("mx-web-player")
+        .setSection("yn-web-player")
         .setIcon("sliders-horizontal")
         .onClick(() => {
           toggleControls(!controls);
@@ -43,7 +43,7 @@ export function webpageMenu(
               ? "Enable in-player fullscreen"
               : "Disable in-player fullscreen",
           )
-          .setSection("mx-web-player")
+          .setSection("yn-web-player")
           .setIcon(disableWebFullscreen ? "maximize" : "minimize")
           .onClick(() => {
             toggleWebFullscreen(!!disableWebFullscreen);

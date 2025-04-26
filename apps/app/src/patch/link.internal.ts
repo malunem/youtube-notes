@@ -1,11 +1,11 @@
 import { around } from "monkey-around";
 import { Workspace } from "obsidian";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { LinkEvent } from "./event";
 import { toPaneAction } from "./mod-evt";
 
 export default function patchLinktextOpen(
-  this: MxPlugin,
+  this: YnPlugin,
   { onInternalLinkClick }: Pick<LinkEvent, "onInternalLinkClick">,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias

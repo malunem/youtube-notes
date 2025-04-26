@@ -1,15 +1,15 @@
 import type { PaneType, TFile } from "obsidian";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 
 export interface LinkEvent {
   onExternalLinkClick(
-    this: MxPlugin,
+    this: YnPlugin,
     url: string,
     newLeaf: false | PaneType,
     fallback: () => void,
   ): any;
   onInternalLinkClick(
-    this: MxPlugin,
+    this: YnPlugin,
     linktext: string,
     sourcePath: string,
     newLeaf: false | PaneType | undefined,

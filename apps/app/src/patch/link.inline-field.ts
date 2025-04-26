@@ -1,10 +1,10 @@
 import { around } from "monkey-around";
 import { MarkdownView } from "obsidian";
 import { mediaSourceFields } from "@/media-note/note-index/def";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { isModEvent } from "./mod-evt";
 
-export default function patchInlineUrl(this: MxPlugin) {
+export default function patchInlineUrl(this: YnPlugin) {
   const clickHandler = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
     if (!target.instanceOf(HTMLElement)) return;

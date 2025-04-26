@@ -20,8 +20,8 @@ import {
   MEDIA_FILE_VIEW_TYPE,
   type MediaViewType,
 } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
-import type { MxSettings } from "@/settings/def";
+import type YnPlugin from "@/yn-main";
+import type { YnSettings } from "@/settings/def";
 import { type MediaInfo, mediaInfoFromFile } from "../info/media-info";
 import { applyTempFrag, handleTempFrag } from "./state/apply-tf";
 import { handleCueUpdate } from "./state/handle-cue-update";
@@ -71,7 +71,7 @@ export interface MediaViewState {
   updateWebsiteTracks: (tracks: WebsiteTextTrack[]) => void;
 }
 
-export function createMediaViewStore(plugin: MxPlugin) {
+export function createMediaViewStore(plugin: YnPlugin) {
   const store = createStore<MediaViewState>((set, get, store) => ({
     player: null,
     setPlayer: (inst) => {
@@ -171,14 +171,14 @@ export function createMediaViewStore(plugin: MxPlugin) {
       const { player } = get();
       set({ controls: showCustom });
       if (player && player.provider instanceof WebiviewMediaProvider) {
-        player.provider.media.send("mx-toggle-controls", !showCustom);
+        player.provider.media.send("yn-toggle-controls", !showCustom);
       }
     },
     toggleWebFullscreen(enableWebFs) {
       const { player } = get();
       set({ disableWebFullscreen: !enableWebFs });
       if (player && player.provider instanceof WebiviewMediaProvider) {
-        player.provider.media.send("mx-toggle-webfs", enableWebFs);
+        player.provider.media.send("yn-toggle-webfs", enableWebFs);
       }
     },
     textTracks: { local: [], remote: [] },
@@ -199,7 +199,7 @@ export type MediaViewStoreApi = ReturnType<typeof createMediaViewStore>;
 
 export const MediaViewContext = createContext<{
   store: MediaViewStoreApi;
-  plugin: MxPlugin;
+  plugin: YnPlugin;
   embed: boolean;
   reload: () => void;
   onScreenshot?: (info: ScreenshotInfo) => any;
@@ -215,7 +215,7 @@ export function useMediaViewStore<U>(
   return useStore(store, selector);
 }
 
-export function useSettings<U>(selector: (state: MxSettings) => U): U {
+export function useSettings<U>(selector: (state: YnSettings) => U): U {
   const {
     plugin: { settings },
   } = useContext(MediaViewContext);

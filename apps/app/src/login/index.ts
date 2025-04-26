@@ -1,7 +1,7 @@
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { LoginModal } from "./modal";
 
-export function initLogin(this: MxPlugin) {
+export function initLogin(this: YnPlugin) {
   this.addCommand({
     id: "login",
     name: "Login website",

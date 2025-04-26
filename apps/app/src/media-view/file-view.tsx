@@ -8,7 +8,7 @@ import { checkMediaType } from "@/info/media-type";
 import type { PaneMenuSource } from "@/lib/menu";
 import { handleWindowMigration } from "@/lib/window-migration";
 import { handleTrackUpdate } from "@/media-note/note-index/indexer";
-import type MediaExtended from "@/mx-main";
+import type MediaExtended from "@/yn-main";
 import { type PlayerComponent, addAction, onPaneMenu } from "./base";
 import type { MediaFileViewType } from "./view-type";
 import { MEDIA_FILE_VIEW_TYPE } from "./view-type";
@@ -33,7 +33,7 @@ abstract class MediaFileView
     super(leaf);
     this.store = createMediaViewStore(plugin);
     this.scope = new Scope(this.app.scope);
-    this.contentEl.addClasses(["mx", "custom"]);
+    this.contentEl.addClasses(["yn", "custom"]);
     addAction(this);
   }
 

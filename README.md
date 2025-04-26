@@ -8,17 +8,17 @@ This plugin is designed to enrich your note-taking experience in obsidian.md by 
 
 ## Getting Started 🚀
 
-Go to [media-extended documentation](https://mx.pkmer.net/#getting-started) for more information.
+Go to [youtube-notes documentation](https://yn.pkmer.net/#getting-started) for more information.
 
 > [!TIP]
 > TL;DR:
-> 1. Click to install: [![install - obsidian](https://img.shields.io/badge/media_extended-v3-6c31e3?logo=obsidian)](https://obsidian.md/plugins?id=media-extended)
+> 1. Click to install: [![install - obsidian](https://img.shields.io/badge/media_extended-v3-6c31e3?logo=obsidian)](https://obsidian.md/plugins?id=youtube-notes)
 > 2. open the following link in browser to see the plugin in action.
 > ```
-> obsidian://mx-open/https://www.youtube.com/watch?v=jNQXAC9IVRw
+> obsidian://yn-open/https://www.youtube.com/watch?v=jNQXAC9IVRw
 > ```
 
-For common question, please refer to the [FAQ](https://mx.pkmer.net/faq), and before open an issue, please check [Known issues](https://mx.pkmer.net/faq/known-issue) first.
+For common question, please refer to the [FAQ](https://yn.pkmer.net/faq), and before open an issue, please check [Known issues](https://yn.pkmer.net/faq/known-issue) first.
 
 ## Features 🌟
 

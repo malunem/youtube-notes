@@ -3,7 +3,7 @@ import { Component, TFile, debounce } from "obsidian";
 import type { MediaInfo } from "@/info/media-info";
 import { getMediaInfoID } from "@/info/media-info";
 import { waitUntilResolve } from "@/lib/meta-resolve";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { iterateFiles } from "../../lib/iterate-files";
 import { emptyLists } from "./def";
 import type { PlaylistWithActive, Playlist } from "./def";
@@ -12,7 +12,7 @@ import { getPlaylistMeta } from "./extract";
 
 export class PlaylistIndex extends Component {
   app;
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
     this.app = plugin.app;
   }
@@ -104,7 +104,7 @@ export class PlaylistIndex extends Component {
   }
 
   notify() {
-    this.app.metadataCache.trigger("mx:playlist-change");
+    this.app.metadataCache.trigger("yn:playlist-change");
   }
   requestNotify = debounce(() => this.notify(), 500);
 

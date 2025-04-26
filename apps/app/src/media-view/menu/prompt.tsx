@@ -20,7 +20,7 @@ export class PlaybackSpeedPrompt extends Modal {
     public onExit: () => void,
   ) {
     super(app);
-    this.containerEl.addClass("mx-playback-prompt");
+    this.containerEl.addClass("yn-playback-prompt");
     this.onSubmit = onSubmit;
   }
 

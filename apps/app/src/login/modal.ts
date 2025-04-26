@@ -22,12 +22,12 @@ export class LoginModal extends Modal {
   navEl = this.contentEl.insertAdjacentElement(
     "beforebegin",
     createDiv({
-      cls: "mx-login-nav",
+      cls: "yn-login-nav",
     }),
   )! as HTMLDivElement;
   constructor(app: App) {
     super(app);
-    this.containerEl.addClasses(["mx-login-modal"]);
+    this.containerEl.addClasses(["yn-login-modal"]);
     this.titleEl.style.display = "none";
     this.buildWelcome();
   }
@@ -45,7 +45,7 @@ export class LoginModal extends Modal {
   backButton = new ButtonComponent(this.navEl)
     .setIcon("arrow-left")
     .setTooltip("Back")
-    .setClass("mx-login-back")
+    .setClass("yn-login-back")
     .setDisabled(true)
     .onClick(() => {
       try {
@@ -58,7 +58,7 @@ export class LoginModal extends Modal {
   forwardButton = new ButtonComponent(this.navEl)
     .setIcon("arrow-right")
     .setTooltip("Forward")
-    .setClass("mx-login-forward")
+    .setClass("yn-login-forward")
     .setDisabled(true)
     .onClick(() => {
       try {
@@ -71,7 +71,7 @@ export class LoginModal extends Modal {
   refreshButton = new ButtonComponent(this.navEl)
     .setIcon("rotate-ccw")
     .setTooltip("Refresh")
-    .setClass("mx-login-refresh")
+    .setClass("yn-login-refresh")
     .setDisabled(true)
     .onClick(() => {
       try {
@@ -86,7 +86,7 @@ export class LoginModal extends Modal {
   addressBar = new TextComponent(this.addressBarForm).then((el) => {
     el.inputEl.type = "url";
     el.inputEl.placeholder = "https://example.com";
-    el.inputEl.classList.add("mx-login-address");
+    el.inputEl.classList.add("yn-login-address");
   });
   addressSubmit = new ButtonComponent(this.addressBarForm)
     .setIcon("arrow-right-circle")
@@ -94,7 +94,7 @@ export class LoginModal extends Modal {
   moreOptionsButton = new ButtonComponent(this.navEl)
     .setIcon("more-horizontal")
     .setTooltip("More options")
-    .setClass("mx-login-more")
+    .setClass("yn-login-more")
     .onClick((e) => {
       const menu = new Menu();
       this.onMoreOptions(menu);

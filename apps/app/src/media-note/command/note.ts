@@ -7,7 +7,7 @@ import {
   Notice,
 } from "obsidian";
 import type { MediaView } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { byActiveTime } from "../leaf-open";
 import {
   copyScreenshot,
@@ -18,7 +18,7 @@ import { takeTimestamp } from "../timestamp/timestamp";
 import type { MediaViewCallback } from "./utils";
 import { addMediaViewCommand } from "./utils";
 
-export function registerNoteCommands(plugin: MxPlugin) {
+export function registerNoteCommands(plugin: YnPlugin) {
   let prevTarget: TFile | null = null;
   addMediaViewCommand(
     {

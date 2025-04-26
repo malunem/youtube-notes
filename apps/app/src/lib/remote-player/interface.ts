@@ -61,15 +61,15 @@ export const mediaActionProps = ["play", "pause"] as const;
 /**
  * emitted when the player is mounted
  */
-export const mountedEvent = "mx-mounted";
+export const mountedEvent = "yn-mounted";
 /**
  * emitted when the player is ready to receive messages
  */
-export const readyEvent = "mx-ready";
+export const readyEvent = "yn-ready";
 /**
  * emitted when the player is ready to play media
  */
-export const playReadyEvent = "mx-play-ready";
+export const playReadyEvent = "yn-play-ready";
 
 export type CustomEvent =
   | typeof mountedEvent
@@ -206,15 +206,15 @@ export type MsgCtrlRemote = MessageController<
   Nil,
   {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    "mx-toggle-controls": boolean;
-    "mx-toggle-webfs": boolean;
+    "yn-toggle-controls": boolean;
+    "yn-toggle-webfs": boolean;
   },
   Record<CustomEvent, void> & MediaEventPayloadMap & CustomEventWithPayload
 >;
 
 type CustomEventWithPayload = {
-  "mx-open-browser": { url: string; message?: string };
-  "mx-text-tracks": { tracks: WebsiteTextTrack[] };
+  "yn-open-browser": { url: string; message?: string };
+  "yn-text-tracks": { tracks: WebsiteTextTrack[] };
 };
 
 export type MsgCtrlLocal = MessageController<
@@ -246,8 +246,8 @@ export type MsgCtrlLocal = MessageController<
   Record<CustomEvent, void> & MediaEventPayloadMap & CustomEventWithPayload,
   {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    "mx-toggle-controls": boolean;
-    "mx-toggle-webfs": boolean;
+    "yn-toggle-controls": boolean;
+    "yn-toggle-webfs": boolean;
   }
 >;
 

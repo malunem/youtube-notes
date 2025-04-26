@@ -11,7 +11,7 @@ import { useMediaViewStore, useSettings } from "./context";
 
 export function useLastSelectedTrack() {
   const key = useMediaViewStore((s) =>
-    s.source?.url ? `mx-last-track:${getMediaInfoID(s.source.url)}` : null,
+    s.source?.url ? `yn-last-track:${getMediaInfoID(s.source.url)}` : null,
   );
   const [lastSelectedTrack, setTrack] = useState<string | null>(() =>
     key && window ? window.localStorage.getItem(key) : null,
@@ -84,7 +84,7 @@ export function useTextTracks() {
   useEffect(() => {
     if (!(provider instanceof WebiviewMediaProvider)) return;
     const providerCache = providerRef.current!;
-    return provider.media.on("mx-text-tracks", ({ payload: { tracks } }) => {
+    return provider.media.on("yn-text-tracks", ({ payload: { tracks } }) => {
       providerCache.set(tracks, provider);
       setRemoteTracks(tracks);
       if (tracks.length !== 0) console.debug("Remote tracks loaded", tracks);

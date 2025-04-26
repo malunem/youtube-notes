@@ -9,7 +9,7 @@ import type {
 } from "obsidian";
 import type { MediaInfo } from "@/info/media-info";
 import { mediaInfoFromFile } from "@/info/media-info";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { mediaTitle } from "../title";
 import { isMediaTaskSymbol, taskSymbolMediaTypeMap } from "./def";
 import type { MediaTaskSymbol, PlaylistItem, Playlist } from "./def";
@@ -27,7 +27,7 @@ function parsePlaylistAutoplay(meta: CachedMetadata) {
 
 export async function getPlaylistMeta(
   file: TFile,
-  plugin: MxPlugin,
+  plugin: YnPlugin,
 ): Promise<Playlist | null> {
   const meta = plugin.app.metadataCache.getFileCache(file);
   if (!meta) return null;
@@ -47,7 +47,7 @@ async function parsePlaylist(
   meta: CachedMetadata,
   ctx: {
     source: TFile;
-    plugin: MxPlugin;
+    plugin: YnPlugin;
   },
 ): Promise<PlaylistItem[] | null> {
   const { metadataCache, vault } = ctx.plugin.app;

@@ -20,7 +20,7 @@ import type {
 } from "@/media-view/view-type";
 import { isMediaViewType } from "@/media-view/view-type";
 import type { MediaWebpageViewState } from "@/media-view/webpage-view";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { toPaneAction } from "@/patch/mod-evt";
 import type { OpenLinkBehavior } from "@/settings/def";
 import { filterFileLeaf, filterUrlLeaf, sortByMtime } from "./utils";
@@ -49,11 +49,11 @@ declare module "obsidian" {
   }
 }
 
-const mediaLeafActiveClass = "mx-media-active";
+const mediaLeafActiveClass = "yn-media-active";
 
 export class LeafOpener extends Component {
   app: App;
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
     this.app = plugin.app;
   }
@@ -159,7 +159,7 @@ export class LeafOpener extends Component {
     }
     newLeaf = toPaneAction(newLeaf);
     const {
-      defaultMxLinkClick: { click, alt },
+      defaultYnLinkClick: { click, alt },
     } = this.settings;
     if (click === null) {
       return newLeaf ?? false;

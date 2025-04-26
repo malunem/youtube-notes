@@ -1,5 +1,5 @@
 {
-  "media-extended:repeat": [
+  "youtube-notes:repeat": [
     {
       "modifiers": [
         "Ctrl"
@@ -13,7 +13,7 @@
       "key": "R"
     }
   ],
-  "media-extended:forward-5s": [
+  "youtube-notes:forward-5s": [
     {
       "modifiers": [
         "Ctrl"
@@ -21,7 +21,7 @@
       "key": "R"
     }
   ],
-  "media-extended:fast-forward-10x": [
+  "youtube-notes:fast-forward-10x": [
     {
       "modifiers": [
         "Mod"

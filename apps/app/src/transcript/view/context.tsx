@@ -11,9 +11,9 @@ import { formatDuration } from "@/lib/hash/format";
 import { langCodeToLabel, vaildate } from "@/lib/lang/lang";
 import { compare } from "@/media-note/note-index/def";
 import { timestampGenerator } from "@/media-note/timestamp/utils";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { isModEvent } from "@/patch/mod-evt";
-import type { MxSettings } from "@/settings/def";
+import type { YnSettings } from "@/settings/def";
 import "./style.less";
 import type { VTTContent, VTTCueWithId } from "../handle/type";
 
@@ -148,7 +148,7 @@ export type TranscriptViewStoreApi = ReturnType<
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const TranscriptViewContext = createContext<{
   store: TranscriptViewStoreApi;
-  plugin: MxPlugin;
+  plugin: YnPlugin;
 }>(null as any);
 
 export function useTranscriptViewStore<U>(
@@ -159,7 +159,7 @@ export function useTranscriptViewStore<U>(
   return useStore(store, selector);
 }
 
-export function useSettings<U>(selector: (state: MxSettings) => U): U {
+export function useSettings<U>(selector: (state: YnSettings) => U): U {
   const {
     plugin: { settings },
   } = useContext(TranscriptViewContext);

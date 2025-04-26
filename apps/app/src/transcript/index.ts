@@ -1,6 +1,6 @@
 import { around } from "monkey-around";
 import type { Command } from "obsidian";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { LocalTranscriptView } from "./view/file-view";
 
 declare module "obsidian" {
@@ -11,7 +11,7 @@ declare module "obsidian" {
   }
 }
 
-export function registerTranscriptView(plugin: MxPlugin) {
+export function registerTranscriptView(plugin: YnPlugin) {
   LocalTranscriptView.register(plugin);
   plugin.app.workspace.onLayoutReady(() =>
     plugin.register(

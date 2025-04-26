@@ -76,7 +76,7 @@ const opts = {
     ".svg": "text",
     ".ejs": "text",
   },
-  entryPoints: ["src/mx-main.ts"],
+  entryPoints: ["src/yn-main.ts"],
   banner: { js: banner },
   outfile: "dist/main.js",
   tsconfig: "tsconfig.json",
@@ -87,7 +87,7 @@ const opts = {
     obPlugin({ beta: isPreRelease() }),
     inlineCodePlugin(
       {
-        external: ['media-extended', 'fs/promises', 'electron', 'path'],
+        external: ['youtube-notes', 'fs/promises', 'electron', 'path'],
         ...(isProd ? { drop: ["console"], } : {})
       }
     ),

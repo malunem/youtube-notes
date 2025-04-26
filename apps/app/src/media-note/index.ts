@@ -1,9 +1,9 @@
 import { TFile } from "obsidian";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { registerControlCommands } from "./command/media";
 import { registerNoteCommands } from "./command/note";
 
-export function handleMediaNote(this: MxPlugin) {
+export function handleMediaNote(this: YnPlugin) {
   this.registerEvent(
     this.app.workspace.on("file-menu", (menu, file, _source, _leaf) => {
       if (!(file instanceof TFile)) return;

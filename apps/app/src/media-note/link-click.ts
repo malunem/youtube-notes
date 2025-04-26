@@ -5,12 +5,12 @@ import { checkMediaType } from "@/info/media-type";
 import type { MediaURL } from "@/info/media-url";
 import { MediaHost } from "@/info/supported";
 import { MEDIA_FILE_VIEW_TYPE } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { LinkEvent } from "@/patch/event";
 import { fileOperations } from "../media-view/menu/file-op";
 import { openAsMenu } from "../media-view/menu/open-as";
 
-export function shouldOpenMedia(url: MediaURL, plugin: MxPlugin): boolean {
+export function shouldOpenMedia(url: MediaURL, plugin: YnPlugin): boolean {
   return !!(
     url.type !== MediaHost.Generic ||
     url.inferredType ||
@@ -55,7 +55,7 @@ export async function openPath(fullpath: string) {
   if (err) throw new Error(err);
 }
 
-export function handleExternalLinkMenu(plugin: MxPlugin) {
+export function handleExternalLinkMenu(plugin: YnPlugin) {
   plugin.registerEvent(
     plugin.app.workspace.on("url-menu", (menu, link) => {
       const url = plugin.resolveUrl(link);

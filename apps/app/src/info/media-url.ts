@@ -13,9 +13,9 @@ import type { MediaHost } from "./supported";
 const allowedProtocols = new Set(["https:", "http:", "file:"]);
 
 export class MediaURL extends URL implements URLResolveResult {
-  static create(url: string | URL, mx?: URL | string): MediaURL | null {
+  static create(url: string | URL, yn?: URL | string): MediaURL | null {
     try {
-      return new MediaURL(url, mx);
+      return new MediaURL(url, yn);
     } catch {
       return null;
     }
@@ -62,7 +62,7 @@ export class MediaURL extends URL implements URLResolveResult {
    * @returns the url without hash
    */
   print(frag?: TempFragment): string {
-    if (this.mxUrl) return noHash(this.mxUrl.href);
+    if (this.ynUrl) return noHash(this.ynUrl.href);
     if (!frag) return this.jsonState.source;
     if (this.#resolved.print) return this.#resolved.print(frag);
     return this.jsonState.source;
@@ -96,7 +96,7 @@ export class MediaURL extends URL implements URLResolveResult {
   }
 
   clone() {
-    return new MediaURL(this, this.mxUrl ?? undefined);
+    return new MediaURL(this, this.ynUrl ?? undefined);
   }
 
   get readableHref() {
@@ -118,15 +118,15 @@ export class MediaURL extends URL implements URLResolveResult {
 
   get jsonState(): { source: string; hash: string } {
     return {
-      source: noHash(this.mxUrl ?? this.cleaned),
+      source: noHash(this.ynUrl ?? this.cleaned),
       hash: addTempFrag(this.hash, this.#resolved.tempFrag),
     };
   }
 
-  mxUrl: URL | null;
-  constructor(original: string | URL, mx?: URL | string) {
+  ynUrl: URL | null;
+  constructor(original: string | URL, yn?: URL | string) {
     super(original);
-    this.mxUrl = mx ? new URL(mx) : null;
+    this.ynUrl = yn ? new URL(yn) : null;
     if (!allowedProtocols.has(this.protocol))
       throw new Error("Unsupported protocol: " + this.protocol);
     const { type, resolved } = resolveUrlMatcher(this);

@@ -1,13 +1,13 @@
 import { around } from "monkey-around";
 import type { PreviewEventHanlder } from "obsidian";
 import { MarkdownPreviewRenderer } from "obsidian";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { LinkEvent } from "./event";
 import { isModEvent } from "./mod-evt";
 import { getInstancePrototype } from "./utils";
 
 export default function patchPreviewClick(
-  this: MxPlugin,
+  this: YnPlugin,
   events: Pick<LinkEvent, "onExternalLinkClick">,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
@@ -30,7 +30,7 @@ export default function patchPreviewClick(
 function patchPreviewEventHanlder(
   handler: PreviewEventHanlder,
   { onExternalLinkClick }: Pick<LinkEvent, "onExternalLinkClick">,
-  plugin: MxPlugin,
+  plugin: YnPlugin,
 ) {
   plugin.register(
     around(getInstancePrototype(handler), {

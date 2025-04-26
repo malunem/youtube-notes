@@ -1,7 +1,7 @@
 export const GET_PORT_TIMEOUT = 5e3;
 
-export const PORT_READY_EVENT = "mx-port-ready";
-export const PORT_MESSAGE_ID_PLACEHOLDER = "__MX_PORT_MESSAGE__";
+export const PORT_READY_EVENT = "yn-port-ready";
+export const PORT_MESSAGE_ID_PLACEHOLDER = "__YN_PORT_MESSAGE__";
 
 declare module "obsidian" {
   interface App {
@@ -9,4 +9,4 @@ declare module "obsidian" {
   }
 }
 
-export const getPartition = (id: string) => `persist:mx-player-${id}`;
+export const getPartition = (id: string) => `persist:yn-player-${id}`;

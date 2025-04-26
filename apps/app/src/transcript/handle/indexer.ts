@@ -3,19 +3,19 @@ import { Component } from "obsidian";
 import { getTrackInfoID, isVaultTrack } from "@/info/track-info";
 import type { TextTrackInfo } from "@/info/track-info";
 import { createEventEmitter } from "@/lib/emitter";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { isUnresolvedTrackLink, resolveTrackLink } from "./meta";
 import type { MetaTextTrackInfo, UnresolvedTrackLink } from "./meta";
 
 declare module "obsidian" {
   interface MetadataCache {
     on(
-      name: "mx:transcript-changed",
+      name: "yn:transcript-changed",
       callback: (trackIDs: Set<string>, mediaID: string) => any,
       ctx?: any,
     ): EventRef;
     trigger(
-      name: "mx:transcript-changed",
+      name: "yn:transcript-changed",
       trackIDs: Set<string>,
       mediaID: string,
     ): void;
@@ -23,7 +23,7 @@ declare module "obsidian" {
 }
 export class TranscriptIndex extends Component {
   app;
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
     this.app = plugin.app;
   }

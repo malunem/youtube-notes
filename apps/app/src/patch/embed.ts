@@ -6,13 +6,13 @@ import { parseSizeFromLinkTitle, setSize } from "@/lib/size-syntax";
 import { shouldOpenMedia } from "@/media-note/link-click";
 import { titleFromUrl } from "@/media-view/base";
 import { MediaRenderChild } from "@/media-view/url-embed";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { getMediaExts } from "../info/media-type";
 import setupEmbedWidget from "./embed-widget";
 import { reloadMarkdownPreview } from "./utils";
 
 export default function injectMediaEmbed(
-  this: MxPlugin,
+  this: YnPlugin,
   embedCreator: EmbedCreator,
 ) {
   injectFileMediaEmbed.call(this, embedCreator);
@@ -62,10 +62,10 @@ class UrlEmbedMarkdownRenderChild extends MediaRenderChild {
   constructor(
     public info: MediaURL,
     public containerEl: HTMLElement,
-    public plugin: MxPlugin,
+    public plugin: YnPlugin,
   ) {
     super(containerEl, plugin);
-    containerEl.addClasses(["mx-external-media-embed"]);
+    containerEl.addClasses(["yn-external-media-embed"]);
   }
   onload() {
     this.setSource(this.info);
@@ -73,7 +73,7 @@ class UrlEmbedMarkdownRenderChild extends MediaRenderChild {
   }
 }
 
-function injectUrlMediaEmbed(this: MxPlugin) {
+function injectUrlMediaEmbed(this: YnPlugin) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const plguin = this;
   this.registerMarkdownPostProcessor((el, ctx) => {

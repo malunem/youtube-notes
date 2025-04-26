@@ -6,7 +6,7 @@ import { isEqual } from "lodash-es";
 import { Component } from "obsidian";
 import { createEventEmitter } from "@/lib/emitter";
 import { gzipBlobToJson, jsonToGzipBlob } from "@/lib/store";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { VTTContent } from "./type";
 
 interface CaptionData extends TextTrackInit {
@@ -20,7 +20,7 @@ interface CaptionData extends TextTrackInit {
   } | null;
 }
 
-interface MxCache extends DBSchema {
+interface YnCache extends DBSchema {
   "caption-data": {
     key: [string, string];
     value: CaptionData;
@@ -36,13 +36,13 @@ interface MxCache extends DBSchema {
 }
 
 export class CacheStore extends Component {
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
   }
 
-  #db: IDBPDatabase<MxCache> | null = null;
+  #db: IDBPDatabase<YnCache> | null = null;
 
-  get db(): Promise<IDBPDatabase<MxCache>> {
+  get db(): Promise<IDBPDatabase<YnCache>> {
     if (this.#db) return Promise.resolve(this.#db);
     return new Promise((resolve, reject) => {
       const unload = this.event.once("db-ready", (db) => {
@@ -56,20 +56,20 @@ export class CacheStore extends Component {
     });
   }
   async withDb<T>(
-    callback: (db: IDBPDatabase<MxCache>) => T,
+    callback: (db: IDBPDatabase<YnCache>) => T,
   ): Promise<Awaited<T>> {
     const db = await this.db;
     return await callback(db);
   }
 
   event = createEventEmitter<{
-    "db-ready": (db: IDBPDatabase<MxCache>) => void;
+    "db-ready": (db: IDBPDatabase<YnCache>) => void;
     "title-update": (sid: string, title: string) => void;
     "caption-update": (sid: string, id: string) => void;
   }>();
 
   onload(): void {
-    openDB<MxCache>("mx-cache", 1, {
+    openDB<YnCache>("yn-cache", 1, {
       upgrade(db) {
         const captionStore = db.createObjectStore("caption-data", {
           keyPath: ["sid", "id"],

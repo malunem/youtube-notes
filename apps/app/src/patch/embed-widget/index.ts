@@ -1,6 +1,6 @@
 import { around } from "monkey-around";
 import type { Plugin } from "obsidian";
-import type MediaExtended from "@/mx-main";
+import type MediaExtended from "@/yn-main";
 import "./embed-patch.global.css";
 
 import defineStatefulDecoration from "./state";
@@ -11,7 +11,7 @@ export default function setupEmbedWidget(plugin: MediaExtended) {
 }
 
 const cmClasses = ["cm-line", "cm-content"];
-const errorLabel = "mxError";
+const errorLabel = "ynError";
 function isParentCm(el: HTMLElement) {
   if (!el.parentElement) return false;
   const parent = el.parentElement;

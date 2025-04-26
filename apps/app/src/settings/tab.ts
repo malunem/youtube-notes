@@ -13,15 +13,15 @@ import { getGroupedLangExtra } from "@/lib/lang/lang";
 import { showAtButton } from "@/lib/menu";
 import { getDialog } from "@/lib/require";
 import { LoginModal } from "@/login/modal";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import "./style.global.less";
 import type { BilibiliQuality } from "@/web/session/bilibili";
 import { bilibiliQualityLabels } from "@/web/session/bilibili";
-import type { MxSettings, OpenLinkBehavior } from "./def";
+import type { YnSettings, OpenLinkBehavior } from "./def";
 
-export class MxSettingTabs extends PluginSettingTab {
-  plugin: MxPlugin;
-  constructor(plugin: MxPlugin) {
+export class YnSettingTabs extends PluginSettingTab {
+  plugin: YnPlugin;
+  constructor(plugin: YnPlugin) {
     super(plugin.app, plugin);
     this.plugin = plugin;
   }
@@ -39,7 +39,7 @@ export class MxSettingTabs extends PluginSettingTab {
       .setName("Protocols")
       .setDesc("Create custom protocols that resolve link per device");
     const container = this.containerEl.createDiv({
-      cls: "mx-protocol-container",
+      cls: "yn-protocol-container",
     });
     new Setting(container)
       .setHeading()
@@ -93,7 +93,7 @@ export class MxSettingTabs extends PluginSettingTab {
             showAtButton(btn.extraSettingsEl, menu);
           }),
       );
-    const list = container.createDiv({ cls: "mx-protocol-list" });
+    const list = container.createDiv({ cls: "yn-protocol-list" });
     const buildItem = (p: {
       protocol: string;
       replace: string;
@@ -137,8 +137,8 @@ export class MxSettingTabs extends PluginSettingTab {
             if (!protocol.getValue()) return;
             this.state.setUrlMapping(protocol.getValue(), replace);
           });
-        protocol.inputEl.addClass("mx-protocol-input");
-        replace.inputEl.addClass("mx-replace-input");
+        protocol.inputEl.addClass("yn-protocol-input");
+        replace.inputEl.addClass("yn-replace-input");
         item.addExtraButton((btn) =>
           btn
             .setIcon("trash")
@@ -234,15 +234,15 @@ export class MxSettingTabs extends PluginSettingTab {
       .addDropdown((d) =>
         d
           .addOptions(options)
-          .setValue(toLabel(this.state.defaultMxLinkClick.click))
+          .setValue(toLabel(this.state.defaultYnLinkClick.click))
           .onChange((val) =>
-            this.state.setDefaultMxLinkBehavior(fromLabel(val)),
+            this.state.setDefaultYnLinkBehavior(fromLabel(val)),
           )
           .then(() =>
             this.sub((s, prev) => {
-              if (s.defaultMxLinkClick.click === prev.defaultMxLinkClick.click)
+              if (s.defaultYnLinkClick.click === prev.defaultYnLinkClick.click)
                 return;
-              d.setValue(toLabel(s.defaultMxLinkClick.click));
+              d.setValue(toLabel(s.defaultYnLinkClick.click));
             }),
           ),
       );
@@ -252,13 +252,13 @@ export class MxSettingTabs extends PluginSettingTab {
       .addDropdown((d) =>
         d
           .addOptions(options)
-          .setValue(toLabel(this.state.defaultMxLinkClick.alt))
-          .onChange((val) => this.state.setMxLinkAltBehavior(fromLabel(val)))
+          .setValue(toLabel(this.state.defaultYnLinkClick.alt))
+          .onChange((val) => this.state.setYnLinkAltBehavior(fromLabel(val)))
           .then(() =>
             this.sub((s, prev) => {
-              if (s.defaultMxLinkClick.alt === prev.defaultMxLinkClick.alt)
+              if (s.defaultYnLinkClick.alt === prev.defaultYnLinkClick.alt)
                 return;
-              d.setValue(toLabel(s.defaultMxLinkClick.alt));
+              d.setValue(toLabel(s.defaultYnLinkClick.alt));
             }),
           ),
       );
@@ -269,10 +269,10 @@ export class MxSettingTabs extends PluginSettingTab {
         "Configure link open behavior" + keyDesc ? ` when ${keyDesc}` : "",
       );
     }
-    onClickCfgUpdate(this.state.defaultMxLinkClick.click);
+    onClickCfgUpdate(this.state.defaultYnLinkClick.click);
     this.sub((s, prev) => {
-      if (s.defaultMxLinkClick === prev.defaultMxLinkClick) return;
-      onClickCfgUpdate(s.defaultMxLinkClick.click);
+      if (s.defaultYnLinkClick === prev.defaultYnLinkClick) return;
+      onClickCfgUpdate(s.defaultYnLinkClick.click);
     });
   }
 
@@ -594,7 +594,7 @@ export class MxSettingTabs extends PluginSettingTab {
         });
       });
 
-    const qualVal = (state: MxSettings) =>
+    const qualVal = (state: YnSettings) =>
       state.screenshotFormat === "image/webp" ? 0.8 : 0.92;
     new Setting(container)
       .setName("Screenshot quality")

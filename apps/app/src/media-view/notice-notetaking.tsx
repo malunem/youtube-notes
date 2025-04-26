@@ -1,7 +1,7 @@
 import { Notice } from "obsidian";
 
 export function noticeNotetaking(action: string) {
-  const label = "mx:media-notetaking-notified";
+  const label = "yn:media-notetaking-notified";
   const notified = localStorage.getItem(label);
   if (notified) return;
   new Notice(

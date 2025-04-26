@@ -10,12 +10,12 @@ import {
 } from "@/info/track-info";
 import type { PaneMenuSource } from "@/lib/menu";
 import { compare } from "@/media-note/note-index/def";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { transcriptViewType } from "../const";
 import { createTranscriptViewStore, TranscriptViewContext } from "./context";
 
 export class LocalTranscriptView extends EditableFileView {
-  static register(plugin: MxPlugin) {
+  static register(plugin: YnPlugin) {
     plugin.registerView(
       transcriptViewType.local,
       (leaf) => new LocalTranscriptView(leaf, plugin),
@@ -39,9 +39,9 @@ export class LocalTranscriptView extends EditableFileView {
   //   return this.store.getState().title ?? super.getDisplayText();
   // }
 
-  constructor(leaf: WorkspaceLeaf, public plugin: MxPlugin) {
+  constructor(leaf: WorkspaceLeaf, public plugin: YnPlugin) {
     super(leaf);
-    this.contentEl.addClasses(["mx", "custom", "mx-transcript-view"]);
+    this.contentEl.addClasses(["yn", "custom", "yn-transcript-view"]);
   }
 
   allowNoFile = false;
@@ -56,7 +56,7 @@ export class LocalTranscriptView extends EditableFileView {
     const track = toTrack(file);
     if (!track) throw new Error(`Caption file not supported: ${file.path}`);
     this.registerEvent(
-      this.app.workspace.on("mx:cue-change", (source, trackID, cueIDs) => {
+      this.app.workspace.on("yn:cue-change", (source, trackID, cueIDs) => {
         const { media, textTrack, updateActiveCues } = this.store.getState();
         if (
           !media ||
@@ -80,7 +80,7 @@ export class LocalTranscriptView extends EditableFileView {
       updateActiveCues(textTrack.activeCues.map((c) => c.id));
     };
     this.registerEvent(
-      this.app.metadataCache.on("mx:transcript-changed", (trackIDs) => {
+      this.app.metadataCache.on("yn:transcript-changed", (trackIDs) => {
         const { textTrack } = this.store.getState();
         if (!textTrack || !trackIDs.has(textTrack.id)) return;
         updateLinkedMedia();

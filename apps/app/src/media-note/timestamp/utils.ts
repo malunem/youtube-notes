@@ -5,7 +5,7 @@ import type { MediaInfo } from "@/info/media-info";
 import { insertBeforeCursor, insertToCursor } from "@/lib/cursor";
 import { formatDuration, toTempFragString } from "@/lib/hash/format";
 import type { TempFragment } from "@/lib/hash/temporal-frag";
-import type { MxSettings } from "@/settings/def";
+import type { YnSettings } from "@/settings/def";
 
 export function insertTimestamp(
   { timestamp, screenshot }: { timestamp: string; screenshot?: string },
@@ -47,7 +47,7 @@ export function timestampGenerator(
     app: { fileManager },
     settings: { timestampOffset },
     duration = +Infinity,
-  }: { app: App; settings: MxSettings; duration?: number },
+  }: { app: App; settings: YnSettings; duration?: number },
 ): (newNotePath: string) => string {
   time += timestampOffset;
   if (time < 0) time = 0;

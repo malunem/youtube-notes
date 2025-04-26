@@ -142,7 +142,7 @@ export function MoreOptions() {
       textTracks: tracks,
     } = store.getState();
     workspace.trigger(
-      "mx:media-menu",
+      "yn:media-menu",
       menu,
       {
         player,

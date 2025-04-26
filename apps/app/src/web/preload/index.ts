@@ -10,7 +10,7 @@ import {
   getFsPromise,
   getUserDataPath,
 } from "@/lib/require";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { buildPreloadLoader, channelId } from "./channel";
 import { BILI_REQ_STORE, replaceEnv } from "./const";
 
@@ -24,14 +24,14 @@ const channel = channelId(BILI_REQ_STORE);
 
 declare module "obsidian" {
   interface MetadataCache {
-    on(name: "mx:preload-ready", callback: () => any, ctx?: any): EventRef;
+    on(name: "yn:preload-ready", callback: () => any, ctx?: any): EventRef;
     on(
-      name: "mx:preload-error",
+      name: "yn:preload-error",
       callback: (err: unknown) => any,
       ctx?: any,
     ): EventRef;
-    trigger(name: "mx:preload-ready"): void;
-    trigger(name: "mx:preload-error", err: unknown): void;
+    trigger(name: "yn:preload-ready"): void;
+    trigger(name: "yn:preload-error", err: unknown): void;
   }
   interface Workspace {
     floatingSplit: {
@@ -44,7 +44,7 @@ export class WebviewPreload extends Component {
   get app() {
     return this.plugin.app;
   }
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
   }
 
@@ -55,12 +55,12 @@ export class WebviewPreload extends Component {
 
   private onReady(): void {
     this.ready = true;
-    this.app.metadataCache.trigger("mx:preload-ready");
+    this.app.metadataCache.trigger("yn:preload-ready");
   }
   private onError(err: unknown): void {
     console.error("Failed to load preload", err);
     this.ready = null;
-    this.app.metadataCache.trigger("mx:preload-error", err);
+    this.app.metadataCache.trigger("yn:preload-error", err);
   }
 
   untilReady(timeout = 5e3): Promise<void> {
@@ -68,17 +68,17 @@ export class WebviewPreload extends Component {
       if (this.ready) return resolve();
       if (this.ready === null) return reject(new Error("Cannot load"));
       const onReady = () => {
-        this.app.metadataCache.off("mx:preload-ready", onReady);
-        this.app.metadataCache.off("mx:preload-error", onError);
+        this.app.metadataCache.off("yn:preload-ready", onReady);
+        this.app.metadataCache.off("yn:preload-error", onError);
         resolve();
       };
       const onError = (err: unknown) => {
-        this.app.metadataCache.off("mx:preload-ready", onReady);
-        this.app.metadataCache.off("mx:preload-error", onError);
+        this.app.metadataCache.off("yn:preload-ready", onReady);
+        this.app.metadataCache.off("yn:preload-error", onError);
         reject(err);
       };
-      this.app.metadataCache.on("mx:preload-ready", onReady);
-      this.app.metadataCache.on("mx:preload-error", onError);
+      this.app.metadataCache.on("yn:preload-ready", onReady);
+      this.app.metadataCache.on("yn:preload-error", onError);
       setTimeout(() => {
         onError(new Error("Timeout"));
       }, timeout);
@@ -95,11 +95,11 @@ export class WebviewPreload extends Component {
     const userDataDir = getUserDataPath();
     const preloadLoaderPath = path.join(
       userDataDir,
-      `mx-player-hack.${Date.now()}.js`,
+      `yn-player-hack.${Date.now()}.js`,
     );
     const preloadScriptPath = path.join(
       userDataDir,
-      `mx-preload.${Date.now()}.js`,
+      `yn-preload.${Date.now()}.js`,
     );
 
     (async () => {
@@ -143,7 +143,7 @@ export class WebviewPreload extends Component {
       });
 
       this.register(disable);
-      console.log("mx-player-hack loaded");
+      console.log("yn-player-hack loaded");
       this.onReady();
     })().catch((e) => this.onError(e));
   }

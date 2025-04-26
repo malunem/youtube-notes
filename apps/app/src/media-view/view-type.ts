@@ -7,8 +7,8 @@ import type { VideoUrlView, AudioUrlView } from "./url-view";
 import type { MediaWebpageView } from "./webpage-view";
 
 export const MEDIA_URL_VIEW_TYPE = {
-  video: "mx-url-video",
-  audio: "mx-url-audio",
+  video: "yn-url-video",
+  audio: "yn-url-audio",
 } as const satisfies Record<MediaType, string>;
 export type MediaUrlViewType =
   (typeof MEDIA_URL_VIEW_TYPE)[keyof typeof MEDIA_URL_VIEW_TYPE];
@@ -19,17 +19,17 @@ export function isMediaUrlViewType(type: string): type is MediaUrlViewType {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const MEDIA_EMBED_VIEW_TYPE = "mx-embed" as const;
+export const MEDIA_EMBED_VIEW_TYPE = "yn-embed" as const;
 export type MediaEmbedViewType = typeof MEDIA_EMBED_VIEW_TYPE;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const MEDIA_WEBPAGE_VIEW_TYPE = "mx-webpage" as const;
+export const MEDIA_WEBPAGE_VIEW_TYPE = "yn-webpage" as const;
 export type MediaWebpageViewType = typeof MEDIA_WEBPAGE_VIEW_TYPE;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const MEDIA_FILE_VIEW_TYPE = {
-  video: "mx-file-video",
-  audio: "mx-file-audio",
+  video: "yn-file-video",
+  audio: "yn-file-audio",
 } as const satisfies Record<MediaType, string>;
 
 const fileViewTypes = new Set(Object.values(MEDIA_FILE_VIEW_TYPE));

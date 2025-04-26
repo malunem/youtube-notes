@@ -12,7 +12,7 @@ import { formatDuration, toDurationISOString } from "@/lib/hash/format";
 import { normalizeFilename } from "@/lib/norm";
 import type { WebiviewMediaProvider } from "@/lib/remote-player/provider";
 import type { PlayerComponent } from "@/media-view/base";
-import type { MxSettings } from "@/settings/def";
+import type { YnSettings } from "@/settings/def";
 import { mediaTitle } from "../title";
 import { timestampGenerator, insertTimestamp } from "./utils";
 
@@ -21,7 +21,7 @@ interface Player {
   provider: VideoProvider | WebiviewMediaProvider;
   state: Readonly<MediaPlayerState>;
   app: App;
-  settings: MxSettings;
+  settings: YnSettings;
 }
 
 export function validateProvider<T extends PlayerComponent>(

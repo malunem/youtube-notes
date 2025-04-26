@@ -6,12 +6,12 @@ import { dataLpPassthrough } from "@/components/player/buttons";
 import type { MediaURL } from "@/info/media-url";
 import { parseSizeFromLinkTitle, setSize } from "@/lib/size-syntax";
 import { MediaRenderChild } from "@/media-view/url-embed";
-import type MediaExtended from "@/mx-main";
+import type MediaExtended from "@/yn-main";
 
 class UrlMediaRenderChild extends MediaRenderChild {
   constructor(public containerEl: HTMLElement, public plugin: MediaExtended) {
     super(containerEl, plugin);
-    containerEl.addClasses(["mx-external-media-embed"]);
+    containerEl.addClasses(["yn-external-media-embed"]);
     function isEditButton(target: EventTarget | null): boolean {
       if (!(target instanceof Element)) return false;
       const button = target.closest("button");
@@ -46,7 +46,7 @@ export class InvalidNoticeWidget extends WidgetType {
   toDOM(view: EditorView): HTMLElement {
     const dom = document.createElement("div");
     this.hookClickHandler(view, dom);
-    dom.className = "external-embed mx-external-media-embed mx-invalid-notice";
+    dom.className = "external-embed yn-external-media-embed yn-invalid-notice";
     dom.createEl("p", { text: this.message });
     return dom;
   }
@@ -99,7 +99,7 @@ abstract class UrlPlayerWidget extends WidgetType {
     }
   }
   hookClickHandler(view: EditorView, el: HTMLElement) {
-    el.on("click", "button.mx-lp-edit", (evt) => {
+    el.on("click", "button.yn-lp-edit", (evt) => {
       evt.defaultPrevented ||
         (this.selectElement(view, el), evt.preventDefault());
     });
@@ -200,7 +200,7 @@ abstract class UrlPlayerWidget extends WidgetType {
     container.addClasses([
       "external-embed",
       "cm-embed-block",
-      "mx-media-embed",
+      "yn-media-embed",
     ]);
     container.style.removeProperty("display");
     this.setDOM(view, container);
@@ -229,8 +229,8 @@ export class WebpagePlayerWidget extends UrlPlayerWidget {
 }
 
 export const WidgetCtorMap = {
-  "mx-url-audio": AudioUrlPlayerWidget,
-  "mx-url-video": VideoUrlPlayerWidget,
-  "mx-embed": IframePlayerWidget,
-  "mx-webpage": WebpagePlayerWidget,
+  "yn-url-audio": AudioUrlPlayerWidget,
+  "yn-url-video": VideoUrlPlayerWidget,
+  "yn-embed": IframePlayerWidget,
+  "yn-webpage": WebpagePlayerWidget,
 } satisfies Record<string, typeof UrlPlayerWidget>;

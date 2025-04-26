@@ -10,12 +10,12 @@ declare module "obsidian" {
   }
   interface Workspace {
     on(
-      name: "mx:cue-change",
+      name: "yn:cue-change",
       callback: (source: MediaInfo, trackId: string, cueIds: string[]) => any,
       ctx?: any,
     ): any;
     trigger(
-      name: "mx:cue-change",
+      name: "yn:cue-change",
       source: MediaInfo,
       trackId: string,
       cueIds: string[],
@@ -34,7 +34,7 @@ export function handleCueUpdate(
         const source = store.getState().source?.url;
         if (!source) return;
         workspace.trigger(
-          "mx:cue-change",
+          "yn:cue-change",
           source,
           textTrack.id,
           textTrack.activeCues.map((c) => c.id),

@@ -8,7 +8,7 @@ export function transformMenu(
   const sub = item
     .setTitle("Transform")
     .setIcon("rotate-3d")
-    .setSection("mx-player")
+    .setSection("yn-player")
     .setSubmenu();
 
   if (

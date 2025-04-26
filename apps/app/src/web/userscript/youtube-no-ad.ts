@@ -1,10 +1,10 @@
 // hugely inspired by https://greasyfork.org/zh-CN/scripts/4870-maximize-video
 
 /* eslint-disable @typescript-eslint/naming-convention */
-// import { requireMx } from "./_require";
+// import { requireYn } from "./_require";
 import YouTubePlugin from "./youtube";
 
-// const { waitForSelector } = requireMx();
+// const { waitForSelector } = requireYn();
 
 export default class YouTubePluginNoAd extends YouTubePlugin {
   actualDuration = parseInt(

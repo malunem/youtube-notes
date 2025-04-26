@@ -21,7 +21,7 @@ export function useSource() {
     (s): "video/mp4" | "audio/mp3" | "webpage" | undefined => {
       const viewType = s.source?.viewType;
       if (!viewType) return;
-      if (viewType === "mx-webpage") return "webpage";
+      if (viewType === "yn-webpage") return "webpage";
       if (viewType?.endsWith("video")) return "video/mp4";
       if (viewType?.endsWith("audio")) return "audio/mp3";
     },

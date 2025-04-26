@@ -4,7 +4,7 @@ import { canProviderScreenshot } from "@/components/player/screenshot";
 import type { MediaInfo } from "@/info/media-info";
 import { handleExternalLinkMenu } from "@/media-note/link-click";
 import { copyScreenshot } from "@/media-note/timestamp/screenshot";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { MediaViewType } from "../view-type";
 import { muteMenu } from "./mute";
 import { pipMenu } from "./pip";
@@ -17,7 +17,7 @@ import { webpageMenu } from "./webpage";
 export interface PlayerContext {
   player: MediaPlayerInstance;
   source: MediaInfo;
-  plugin: MxPlugin;
+  plugin: YnPlugin;
   reload: () => void;
   viewType: MediaViewType;
   setTransform: MediaViewState["setTransform"];
@@ -33,7 +33,7 @@ declare module "obsidian" {
   interface Workspace {
     on(name: "url-menu", callback: (menu: Menu, link: string) => any): EventRef;
     on(
-      name: "mx:media-menu",
+      name: "yn:media-menu",
       callback: (
         menu: Menu,
         player: PlayerContext,
@@ -49,7 +49,7 @@ declare module "obsidian" {
     ): EventRef;
 
     trigger(
-      name: "mx:media-menu",
+      name: "yn:media-menu",
       menu: Menu,
       player: PlayerContext,
       source:
@@ -63,10 +63,10 @@ declare module "obsidian" {
   }
 }
 
-export default function registerMediaMenu(this: MxPlugin) {
+export default function registerMediaMenu(this: YnPlugin) {
   handleExternalLinkMenu(this);
   this.registerEvent(
-    this.app.workspace.on("mx:media-menu", (menu, ctx, source) => {
+    this.app.workspace.on("yn:media-menu", (menu, ctx, source) => {
       if (
         source === "more-options" ||
         source === "sidebar-context-menu" ||

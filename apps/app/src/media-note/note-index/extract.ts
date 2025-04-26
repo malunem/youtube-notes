@@ -2,7 +2,7 @@ import { parseLinktext } from "obsidian";
 import type { MetadataCache, CachedMetadata, TFile } from "obsidian";
 import { type MediaInfo } from "@/info/media-info";
 import { checkMediaType } from "@/info/media-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { MediaSourceFieldType } from "./def";
 import { mediaSourceFieldMap } from "./def";
 import { parseMediaNoteMeta, type MediaNoteMeta } from "./parse";
@@ -14,7 +14,7 @@ export interface ParsedMediaNoteMetadata {
 
 export function getMediaNoteMeta(
   file: TFile,
-  { metadataCache, plugin }: { metadataCache: MetadataCache; plugin: MxPlugin },
+  { metadataCache, plugin }: { metadataCache: MetadataCache; plugin: YnPlugin },
 ): ParsedMediaNoteMetadata | null {
   const meta = metadataCache.getFileCache(file);
   if (!meta) return null;
@@ -36,7 +36,7 @@ export function getMediaNoteMeta(
 function getField(
   key: MediaSourceFieldType,
   meta: CachedMetadata,
-  ctx: { metadataCache: MetadataCache; sourcePath: string; plugin: MxPlugin },
+  ctx: { metadataCache: MetadataCache; sourcePath: string; plugin: YnPlugin },
 ): MediaInfo | null {
   const { frontmatter, frontmatterLinks } = meta;
   if (!frontmatter || !(key in frontmatter)) return null;

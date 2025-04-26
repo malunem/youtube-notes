@@ -1,8 +1,8 @@
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { MediaSwitcherModal } from "./modal";
 import { registerProtocol } from "./protocol";
 
-export function initSwitcher(plugin: MxPlugin) {
+export function initSwitcher(plugin: YnPlugin) {
   function openSwitcher() {
     new MediaSwitcherModal(plugin).open();
   }

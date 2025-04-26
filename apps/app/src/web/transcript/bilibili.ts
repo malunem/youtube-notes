@@ -1,9 +1,9 @@
 // import type { MsgCtrlLocal } from "@/lib/remote-player/interface";
-// import type MxPlugin from "@/mx-main";
+// import type YnPlugin from "@/yn-main";
 
 // export async function cacheBilibiliTranscripts(
 //   port: MsgCtrlLocal,
-//   plugin: MxPlugin,
+//   plugin: YnPlugin,
 // ): Promise<{
 //   subtitles: { id: number; lan: string; lanDesc: string }[];
 //   aid: number;

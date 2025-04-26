@@ -1,7 +1,7 @@
 import { fileURLToPath } from "url";
 import { FuzzySuggestModal } from "obsidian";
 import noop from "@/lib/no-op";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 interface FileProtocol {
   action: string;
   url: string;
@@ -9,7 +9,7 @@ interface FileProtocol {
 }
 
 export class FileProtocolModal extends FuzzySuggestModal<FileProtocol> {
-  static choose(plugin: MxPlugin): Promise<FileProtocol | null> {
+  static choose(plugin: YnPlugin): Promise<FileProtocol | null> {
     return new Promise((resolve) => {
       const modal = new FileProtocolModal(plugin);
       modal.open();
@@ -17,7 +17,7 @@ export class FileProtocolModal extends FuzzySuggestModal<FileProtocol> {
     });
   }
 
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super(plugin.app);
   }
 
@@ -36,7 +36,7 @@ export class FileProtocolModal extends FuzzySuggestModal<FileProtocol> {
   }
 
   getItemText(item: FileProtocol): string {
-    return `mx://${item.action}: ${item.path}`;
+    return `yn://${item.action}: ${item.path}`;
   }
 
   resolve: (item: FileProtocol | null) => void = noop;

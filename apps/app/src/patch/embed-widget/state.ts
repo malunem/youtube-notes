@@ -3,7 +3,7 @@ import { StateField } from "@codemirror/state";
 import type { DecorationSet } from "@codemirror/view";
 import { Decoration, EditorView } from "@codemirror/view";
 import { editorEditorField, editorLivePreviewField } from "obsidian";
-import type MediaExtended from "@/mx-main";
+import type MediaExtended from "@/yn-main";
 
 import getPlayerDecos from "./syntax-to-decos";
 import createRangeUnion from "./union";

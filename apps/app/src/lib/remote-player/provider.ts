@@ -69,7 +69,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
       this._webview.removeEventListener("dom-ready", this.onDomReady);
     });
     onDispose(
-      this._port.on("mx-open-browser", ({ payload: { url, message = "" } }) => {
+      this._port.on("yn-open-browser", ({ payload: { url, message = "" } }) => {
         noticeWithOK({
           message: message + `Open ${url} in login browser?`,
           cancelText: "No",
@@ -213,7 +213,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
         timeoutId = window.setTimeout(() => reject(new TimeoutError(ms)), ms);
       });
     const playReady = new Promise<void>((resolve) => {
-      this._port.once("mx-play-ready", () => {
+      this._port.once("yn-play-ready", () => {
         resolve();
         window.clearTimeout(timeoutId);
       });
@@ -346,7 +346,7 @@ export class WebiviewMediaProvider implements MediaProviderAdapter {
 }
 
 function notifyLogin() {
-  const label = "mx:webview-login-notified";
+  const label = "yn:webview-login-notified";
   const notified = localStorage.getItem(label);
   if (notified) return;
   new Notice(
@@ -372,7 +372,7 @@ function notifyLogin() {
 }
 
 function timeoutNotice(timeout: number) {
-  const label = "mx:webview-timeout-ignore";
+  const label = "yn:webview-timeout-ignore";
   const ignore = localStorage.getItem(label);
   if (ignore) return;
   const timeoutLabel = (timeout / 1e3).toFixed(1);

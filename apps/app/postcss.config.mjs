@@ -6,14 +6,14 @@ import prefixSelector from "postcss-prefix-selector";
 
 /** @type {import("postcss").Plugin} */
 const prefix = prefixSelector({
-  prefix: ".mx",
+  prefix: ".yn",
   transform: (prefix, selector, prefixedSelector, filePath, _rule) => {
     if (filePath.includes(".global.")) {
       return selector;
     }
     if (selector.includes(".theme-dark")) {
       return selector.replace(".theme-dark", `.theme-dark ${prefix}`);
-    } else if (selector.includes(".mx-")) {
+    } else if (selector.includes(".yn-")) {
       return selector;
     } else {
       return prefixedSelector;

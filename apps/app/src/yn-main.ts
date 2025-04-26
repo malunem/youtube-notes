@@ -40,16 +40,16 @@ import patchPreviewClick from "./patch/link.preview";
 import injectMediaView from "./patch/view";
 import { patchWin32FileUrl } from "./patch/win-file-url";
 import { createSettingsStore } from "./settings/def";
-import { MxSettingTabs } from "./settings/tab";
+import { YnSettingTabs } from "./settings/tab";
 import { initSwitcher } from "./switcher";
 import { registerTranscriptView } from "./transcript";
 import { TranscriptLoader } from "./transcript/handle/loader";
 import { WebviewPreload } from "./web/preload";
 import { modifySession } from "./web/session";
-import { resolveMxProtocol } from "./web/url-match";
+import { resolveYnProtocol } from "./web/url-match";
 import "./login/modal";
 
-interface MxAPI {
+interface YnAPI {
   openUrl: (
     url: string,
     newLeaf?: PaneType,
@@ -57,7 +57,7 @@ interface MxAPI {
   ) => Promise<void>;
 }
 
-export default class MxPlugin extends Plugin {
+export default class YnPlugin extends Plugin {
   settings = createSettingsStore(this);
 
   transcript = this.addChild(new TranscriptLoader(this));
@@ -65,13 +65,13 @@ export default class MxPlugin extends Plugin {
   resolveUrl(url: string | URL | null | undefined): MediaInfo | null {
     const patched = patchWin32FileUrl(url);
     if (!patched) return null;
-    return resolveMxProtocol(
+    return resolveYnProtocol(
       toURL(patched),
       this.settings.getState(),
       this.app,
     );
   }
-  api: MxAPI = {
+  api: YnAPI = {
     openUrl: async (url, newLeaf, direction) => {
       const urlInfo = this.resolveUrl(url);
       if (!urlInfo) {
@@ -87,7 +87,7 @@ export default class MxPlugin extends Plugin {
   urlViewType = this.addChild(new URLViewType(this));
 
   async onload() {
-    this.addSettingTab(new MxSettingTabs(this));
+    this.addSettingTab(new YnSettingTabs(this));
     await this.loadSettings();
     this.initLogin();
     this.loadPatches();

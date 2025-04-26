@@ -4,7 +4,7 @@ import { mediaInfoFromFile } from "@/info/media-info";
 import { checkMediaType } from "@/info/media-type";
 import { MediaURL } from "@/info/media-url";
 import { MediaHost } from "@/info/supported";
-import type { MxSettings } from "@/settings/def";
+import type { YnSettings } from "@/settings/def";
 
 import type { URLResolveResult, URLResolver } from "./base";
 import { bilibiliDetecter, bilibiliResolver } from "./bilibili";
@@ -56,25 +56,25 @@ export function resolveUrl(url: MediaURL): URLResolveResult {
   return genericResolver(url);
 }
 
-export function resolveMxProtocol(
+export function resolveYnProtocol(
   src: URL | null,
-  { getUrlMapping }: MxSettings,
+  { getUrlMapping }: YnSettings,
   app: App,
 ): MediaInfo | null {
   if (!src) return null;
-  if (src.protocol !== "mx:") return checkInVault(src);
+  if (src.protocol !== "yn:") return checkInVault(src);
 
   // custom protocol take // as part of the pathname
-  const [, , mxProtocol] = src.pathname.split("/");
-  const replace = getUrlMapping(mxProtocol);
+  const [, , ynProtocol] = src.pathname.split("/");
+  const replace = getUrlMapping(ynProtocol);
   if (!replace) return null;
   return checkInVault(
-    src.href.replace(`mx://${mxProtocol}/`, replace.replace(/\/*$/, "/")),
+    src.href.replace(`yn://${ynProtocol}/`, replace.replace(/\/*$/, "/")),
     src,
   );
 
-  function checkInVault(url: string | URL, mx?: string | URL) {
-    const media = MediaURL.create(url, mx);
+  function checkInVault(url: string | URL, yn?: string | URL) {
+    const media = MediaURL.create(url, yn);
     if (!media) return null;
     if (!media.isFileUrl) return media;
     const file = media.getVaultFile(app.vault);

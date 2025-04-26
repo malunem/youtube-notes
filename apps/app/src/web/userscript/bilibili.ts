@@ -6,15 +6,15 @@ import { BiliApiError } from "../bili-api/base";
 import type { PlayerV2Response } from "../bili-api/player-v2";
 import type { SubtitlesConfig } from "../bili-api/subtitle";
 import { storeId } from "../preload/scripts/store-id";
-import { requireMx } from "./_require";
+import { requireYn } from "./_require";
 
-const { waitForSelector, MediaPlugin } = requireMx();
+const { waitForSelector, MediaPlugin } = requireYn();
 
 const css = `
 #bilibili-player .bpx-player-control-wrap {
     opacity: 0 !important;
 }
-.mx-show-controls #bilibili-player .bpx-player-control-wrap {
+.yn-show-controls #bilibili-player .bpx-player-control-wrap {
     opacity: 100 !important;
 }
 `;
@@ -91,7 +91,7 @@ export default class BilibiliPlugin extends MediaPlugin {
     Promise.all([this.toggleDanmaku(false)]);
     await this.untilWebFullscreen();
     await this.getTracks().then((tracks) => {
-      if (tracks.length > 0) this.controller.send("mx-text-tracks", { tracks });
+      if (tracks.length > 0) this.controller.send("yn-text-tracks", { tracks });
     });
   }
 

@@ -9,7 +9,7 @@ import { getUserAgent } from "@/lib/remote-player/ua";
 
 // 10 minutes
 // const expireTime = 10 * 60 * 1000;
-// const tokenKey = "mx-youtube-token";
+// const tokenKey = "yn-youtube-token";
 
 function getParamFromHtml(html: string, key: string): string | null {
   const regex = new RegExp(`"${key}":\\s*"(?<value>[^"]+)"`);

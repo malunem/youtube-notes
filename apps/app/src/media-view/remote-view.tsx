@@ -16,7 +16,7 @@ import { updateTitle } from "@/lib/view-title";
 import { handleWindowMigration } from "@/lib/window-migration";
 import { compare } from "@/media-note/note-index/def";
 import { handleTrackUpdate } from "@/media-note/note-index/indexer";
-import type MediaExtended from "@/mx-main";
+import type MediaExtended from "@/yn-main";
 import type { PlayerComponent } from "./base";
 import { addAction, onPaneMenu } from "./base";
 import type { RemoteMediaViewType } from "./view-type";
@@ -58,7 +58,7 @@ export abstract class MediaRemoteView
     super(leaf);
     this.store = createMediaViewStore(plugin);
     this.scope = new Scope(this.app.scope);
-    this.contentEl.addClasses(["mx", "custom"]);
+    this.contentEl.addClasses(["yn", "custom"]);
     addAction(this);
   }
 

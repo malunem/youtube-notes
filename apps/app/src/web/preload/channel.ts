@@ -8,9 +8,9 @@ interface Channels {
 
 export function channelId(storeId: string): Channels {
   return {
-    enable: `mx-enable-preload-${storeId}`,
-    disable: `mx-disable-preload-${storeId}`,
-    preload: `file:///mx-preload-${storeId}`,
+    enable: `yn-enable-preload-${storeId}`,
+    disable: `yn-disable-preload-${storeId}`,
+    preload: `file:///yn-preload-${storeId}`,
   };
 }
 

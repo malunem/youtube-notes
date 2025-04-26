@@ -14,7 +14,7 @@ import {
   MEDIA_WEBPAGE_VIEW_TYPE,
   MEDIA_FILE_VIEW_TYPE,
 } from "@/media-view/view-type";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { MediaURL } from "./media-url";
 import { MediaHost } from "./supported";
 
@@ -33,7 +33,7 @@ export type URLMatchPattern =
   | string;
 
 export class URLViewType extends Component {
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
     this.#updateMatcher();
   }

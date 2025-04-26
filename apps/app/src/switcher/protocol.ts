@@ -3,15 +3,15 @@ import { around } from "monkey-around";
 import type { ObsidianProtocolData } from "obsidian";
 import { Notice } from "obsidian";
 import { toURL } from "@/lib/url";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 
 declare global {
   // eslint-disable-next-line no-var
   var OBS_ACT: ((params: ObsidianProtocolData) => void) | undefined;
 }
 
-const ACTION = "mx-open";
-export function registerProtocol(plugin: MxPlugin) {
+const ACTION = "yn-open";
+export function registerProtocol(plugin: YnPlugin) {
   if (window.OBS_ACT) {
     plugin.register(
       around(window as { OBS_ACT: (params: ObsidianProtocolData) => void }, {
@@ -29,7 +29,7 @@ export function registerProtocol(plugin: MxPlugin) {
     );
   }
 
-  plugin.registerObsidianProtocolHandler("mx-open", async (params) => {
+  plugin.registerObsidianProtocolHandler("yn-open", async (params) => {
     const url = toURL(params.url);
     if (!url) {
       new Notice("Invalid URL: " + params.url);
@@ -39,7 +39,7 @@ export function registerProtocol(plugin: MxPlugin) {
   });
 
   async function handlePathnameProtocol(params: ObsidianProtocolData) {
-    // remove "mx-open/"
+    // remove "yn-open/"
     const base = params.action.substring(ACTION.length + 1);
     const url = toURL(base);
     const search = new URLSearchParams(params);

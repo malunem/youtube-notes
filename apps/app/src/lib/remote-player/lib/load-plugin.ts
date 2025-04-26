@@ -4,7 +4,7 @@ import type { MsgCtrlRemote } from "../interface";
 import Plugin from "./plugin";
 import { require } from "./require";
 
-const policy = window.trustedTypes?.createPolicy("mx", {
+const policy = window.trustedTypes?.createPolicy("yn", {
   createScript: (code) => code,
   createHTML: (code) => code,
 });

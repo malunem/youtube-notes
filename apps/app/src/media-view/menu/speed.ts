@@ -12,7 +12,7 @@ export function speedMenu(item: MenuItem, player: MediaPlayerInstance) {
   const sub = item
     .setTitle(speedLabel(currentSpeed))
     .setIcon("gauge")
-    .setSection("mx-player")
+    .setSection("yn-player")
     .setSubmenu();
   speedOptions.forEach((speed) =>
     sub.addItem((item) =>

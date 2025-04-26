@@ -77,7 +77,7 @@ export const CueLineList = forwardRef<CueLineListRef, CueLineListProps>(
           style={{
             height: `${rowVirtualizer.getTotalSize()}px`,
           }}
-          className="w-full relative max-w-[var(--file-line-width)] mx-auto"
+          className="w-full relative max-w-[var(--file-line-width)] yn-auto"
         >
           <div
             className="absolute w-full top-0 left-0"

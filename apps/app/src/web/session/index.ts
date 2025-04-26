@@ -1,9 +1,9 @@
 import { Platform } from "obsidian";
 import { getSession } from "@/lib/require";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { modifyBilibiliSession } from "./bilibili";
 
-export async function modifySession(this: MxPlugin) {
+export async function modifySession(this: YnPlugin) {
   if (!Platform.isDesktopApp) return;
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const session = getSession(this.app.appId);

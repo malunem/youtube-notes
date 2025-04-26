@@ -1,15 +1,15 @@
 // hugely inspired by https://greasyfork.org/zh-CN/scripts/4870-maximize-video
 
 const css = `
-body:not(.mx-show-controls) .vp-player-ui-overlays {
+body:not(.yn-show-controls) .vp-player-ui-overlays {
   opacity: 0 !important;
 }
 `;
 
 /* eslint-disable @typescript-eslint/naming-convention */
-import { requireMx } from "./_require";
+import { requireYn } from "./_require";
 
-const { waitForSelector, MediaPlugin } = requireMx();
+const { waitForSelector, MediaPlugin } = requireYn();
 
 export default class VimeoPlugin extends MediaPlugin {
   findMedia(): Promise<HTMLMediaElement> {

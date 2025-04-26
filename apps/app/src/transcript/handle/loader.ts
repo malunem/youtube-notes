@@ -15,7 +15,7 @@ import type {
 import { isSupportedCaptionExt } from "@/info/track-info";
 import type { FileInfo } from "@/lib/file-info";
 import { readFile } from "@/lib/require";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { parseTrack } from "../stringify";
 import {
   resolveInvaultMediaForTrack,
@@ -24,7 +24,7 @@ import {
 import { resolveInvaultTracks, resolveLocalTracks } from "./resolve/track";
 
 export class TranscriptLoader extends Component {
-  constructor(public plugin: MxPlugin) {
+  constructor(public plugin: YnPlugin) {
     super();
     this.app = plugin.app;
   }

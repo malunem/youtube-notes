@@ -82,24 +82,24 @@ export default class MediaPlugin extends LifeCycle {
     const isNativePlayer = this.media.controls === true;
     if (isNativePlayer) this.media.controls = false;
     this.register(
-      this.controller.on("mx-toggle-controls", ({ payload: showWebsite }) => {
-        document.body.classList.toggle("mx-show-controls", showWebsite);
+      this.controller.on("yn-toggle-controls", ({ payload: showWebsite }) => {
+        document.body.classList.toggle("yn-show-controls", showWebsite);
       })
     );
     if (isNativePlayer) {
       this.register(
-        this.controller.on("mx-toggle-controls", ({ payload: showWebsite }) => {
+        this.controller.on("yn-toggle-controls", ({ payload: showWebsite }) => {
           this.media.controls = showWebsite;
         })
       );
     }
     this.register(
-      this.controller.on("mx-toggle-webfs", ({ payload: enableWebFs }) => {
-        document.body.classList.toggle("mx-fs-enable", enableWebFs);
+      this.controller.on("yn-toggle-webfs", ({ payload: enableWebFs }) => {
+        document.body.classList.toggle("yn-fs-enable", enableWebFs);
       })
     );
-    document.body.classList.add("mx-play-ready");
-    this.controller.send("mx-play-ready", void 0);
+    document.body.classList.add("yn-play-ready");
+    this.controller.send("yn-play-ready", void 0);
     console.log("sent play ready");
   }
 
@@ -118,20 +118,20 @@ export default class MediaPlugin extends LifeCycle {
   }
 
   enterWebFullscreen(): any {
-    document.body.classList.add("mx-fs-enable");
+    document.body.classList.add("yn-fs-enable");
     const container =
       this.media.closest<HTMLElement>(generalPlayerRules.join(", ")) ??
       this.media;
-    container.classList.add("mx-player");
+    container.classList.add("yn-player");
     this.assignParentClass(container);
     window.dispatchEvent(new Event("resize"));
   }
 
   assignParentClass(target: HTMLElement) {
     for (const parent of parents(target)) {
-      parent.classList.add("mx-parent");
+      parent.classList.add("yn-parent");
       if (getComputedStyle(parent).position == "fixed") {
-        parent.classList.add("mx-absolute");
+        parent.classList.add("yn-absolute");
       }
     }
   }
@@ -192,7 +192,7 @@ const readyStateEventMap = {
 } as const;
 
 const css = `
-body.mx-fs-enable .mx-player {
+body.yn-fs-enable .yn-player {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
@@ -208,7 +208,7 @@ body.mx-fs-enable .mx-player {
   background-color: #000 !important;
   transform: none !important;
 }
-body.mx-fs-enable .mx-parent {
+body.yn-fs-enable .yn-parent {
   overflow: visible !important;
   z-index: auto !important;
   transform: none !important;
@@ -216,14 +216,14 @@ body.mx-fs-enable .mx-parent {
   transition: none !important;
   contain: none !important;
 }
-body.mx-fs-enable .mx-absolute {
+body.yn-fs-enable .yn-absolute {
   position: absolute !important;
 }
-body.mx-fs-enable {
+body.yn-fs-enable {
   overflow: hidden !important;
   zoom: 100% !important;
 }
-body.mx-fs-enable .mx-parent video {
+body.yn-fs-enable .yn-parent video {
   object-fit: contain !important;
 }
 `.trim();

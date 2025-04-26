@@ -5,7 +5,7 @@ import { MediaViewContext, createMediaViewStore } from "@/components/context";
 import { Player } from "@/components/player";
 import { dataLpPassthrough } from "@/components/player/buttons";
 import { mediaInfoFromFile, type FileMediaInfo } from "@/info/media-info";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { type PlayerComponent } from "./base";
 
 export class MediaFileEmbed
@@ -22,13 +22,13 @@ export class MediaFileEmbed
     public info: EmbedInfo,
     public file: TFile,
     public subpath: string,
-    public plugin: MxPlugin,
+    public plugin: YnPlugin,
   ) {
     super();
     this.containerEl = info.containerEl;
     this.store = createMediaViewStore(plugin);
     const { containerEl } = info;
-    containerEl.addClasses(["mx", "mx-media-embed", "custom"]);
+    containerEl.addClasses(["yn", "yn-media-embed", "custom"]);
     function isEditButton(target: EventTarget | null): boolean {
       if (!(target instanceof Element)) return false;
       const button = target.closest("button");

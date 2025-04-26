@@ -6,7 +6,7 @@ declare global {
 }
 
 const css = `
-body:not(.mx-player-ready) #movie_player, 
+body:not(.yn-player-ready) #movie_player, 
 ytd-watch-flexy[theater] #movie_player {
   position: fixed !important;
   top: 0 !important;
@@ -23,7 +23,7 @@ ytd-watch-flexy[theater] #movie_player {
   background-color: #000 !important;
   transform: none !important;
 }
-.mx-parent {
+.yn-parent {
   overflow: visible !important;
   z-index: auto !important;
   transform: none !important;
@@ -31,20 +31,20 @@ ytd-watch-flexy[theater] #movie_player {
   transition: none !important;
   contain: none !important;
 }
-.mx-absolute {
+.yn-absolute {
   position: absolute !important;
 }
 html, body {
   overflow: hidden !important;
   zoom: 100% !important;
 }
-.mx-parent video {
+.yn-parent video {
   object-fit: contain !important;
 }
 ytd-app .html5-endscreen {
   opacity: 0 !important;
 }
-body:not(.mx-show-controls) ytd-app .ytp-chrome-bottom {
+body:not(.yn-show-controls) ytd-app .ytp-chrome-bottom {
   opacity: 0 !important;
 }
 `.trim();
@@ -82,9 +82,9 @@ ytm-companion-ad-renderer {
 /* eslint-disable @typescript-eslint/naming-convention */
 import type { WebsiteTextTrack } from "@/info/track-info";
 import type { VTTContent } from "@/transcript/handle/type";
-import { requireMx } from "./_require";
+import { requireYn } from "./_require";
 
-const { waitForSelector, MediaPlugin } = requireMx();
+const { waitForSelector, MediaPlugin } = requireYn();
 
 export default class YouTubePlugin extends MediaPlugin {
   async findMedia(): Promise<HTMLMediaElement> {
@@ -178,10 +178,10 @@ export default class YouTubePlugin extends MediaPlugin {
   async onload(): Promise<void> {
     await super.onload();
     const tracks = this.getTracks();
-    if (tracks.length > 0) this.controller.send("mx-text-tracks", { tracks });
+    if (tracks.length > 0) this.controller.send("yn-text-tracks", { tracks });
     this.disableAutoPlay();
     waitForSelector("ytd-consent-bump-v2-lightbox", this.app).then(() => {
-      this.controller.send("mx-open-browser", {
+      this.controller.send("yn-open-browser", {
         message:
           "Seems like YouTube is showing a consent popup that block playback. To continue playback, you should handle it in dedicated login browser. ",
         url: "https://youtube.com",

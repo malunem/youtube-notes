@@ -1,7 +1,7 @@
 import { around } from "monkey-around";
 import type { MarkdownEditView } from "obsidian";
 
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import type { LinkEvent } from "./event";
 import { toPaneAction } from "./mod-evt";
 import { getInstancePrototype, getRunningViewInstance } from "./utils";
@@ -20,7 +20,7 @@ declare module "obsidian" {
 }
 
 export default function patchEditorClick(
-  this: MxPlugin,
+  this: YnPlugin,
   { onExternalLinkClick }: Pick<LinkEvent, "onExternalLinkClick">,
 ) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias

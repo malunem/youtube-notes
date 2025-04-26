@@ -8,7 +8,7 @@ import type { PaneMenuSource } from "@/lib/menu";
 import { toURL } from "@/lib/url";
 import { saveScreenshot } from "@/media-note/timestamp/screenshot";
 import { takeTimestamp } from "@/media-note/timestamp/timestamp";
-import type MediaExtended from "@/mx-main";
+import type MediaExtended from "@/yn-main";
 import type { MediaInfo } from "../info/media-info";
 import { noticeNotetaking } from "./notice-notetaking";
 import { screenshotAllowed, type MediaViewType } from "./view-type";
@@ -86,7 +86,7 @@ export function onPaneMenu<
   } = view.store.getState();
   if (!player || !source) return;
   view.plugin.app.workspace.trigger(
-    "mx:media-menu",
+    "yn:media-menu",
     menu,
     {
       source: source.url,

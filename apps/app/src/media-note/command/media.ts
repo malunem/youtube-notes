@@ -2,10 +2,10 @@ import type { MediaPlayerInstance } from "@vidstack/react";
 import { Notice, debounce } from "obsidian";
 import { PlaybackSpeedPrompt } from "@/media-view/menu/prompt";
 import { speedOptions } from "@/media-view/menu/speed";
-import type MxPlugin from "@/mx-main";
+import type YnPlugin from "@/yn-main";
 import { addMediaViewCommand, handleRepeatHotkey } from "./utils";
 
-const createMediaCommands = (plugin: MxPlugin): Controls[] => [
+const createMediaCommands = (plugin: YnPlugin): Controls[] => [
   {
     id: "toggle-play",
     label: "Play/pause",
@@ -73,7 +73,7 @@ const createMediaCommands = (plugin: MxPlugin): Controls[] => [
   },
   ...speed(plugin),
 ];
-function speed(plugin: MxPlugin): Controls[] {
+function speed(plugin: YnPlugin): Controls[] {
   // reuse notice if user is spamming speed change
   let notice: Notice | null = null;
   const hide = debounce(() => notice?.hide(), 2000, true);
@@ -233,7 +233,7 @@ interface Controls {
   action: (media: MediaPlayerInstance) => void;
 }
 
-export function registerControlCommands(plugin: MxPlugin) {
+export function registerControlCommands(plugin: YnPlugin) {
   createMediaCommands(plugin).forEach(
     ({ id, label, icon, action, repeat, check }) => {
       addMediaViewCommand(

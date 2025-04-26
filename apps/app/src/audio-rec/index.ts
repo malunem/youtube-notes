@@ -7,7 +7,7 @@ import {
   insertTimestamp,
   timestampGenerator,
 } from "@/media-note/timestamp/utils";
-import type MediaExtended from "../mx-main";
+import type MediaExtended from "../yn-main";
 
 export class RecorderNote extends Component {
   constructor(public plugin: MediaExtended) {
