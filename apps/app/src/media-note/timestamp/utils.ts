@@ -16,9 +16,9 @@ export function insertTimestamp(
   }: { template: string; editor: Editor; insertBefore?: boolean },
 ) {
   console.debug("insert timestamp", { timestamp, screenshot, template });
-  let toInsert = template.replace("{{TIMESTAMP}}", timestamp + "\n");
+  let toInsert = template.replace("{{TIMESTAMP}}", timestamp);
   if (screenshot) {
-    toInsert = toInsert.replace("{{SCREENSHOT}}", screenshot + "\n");
+    toInsert = toInsert.replace("{{SCREENSHOT}}", screenshot);
   }
   console.debug("content to insert", toInsert);
 
@@ -29,7 +29,7 @@ export function insertTimestamp(
     console.log({editor, lineCount})
 
     editor.setCursor(editor.lineCount(), 0);
-    insertToCursor(toInsert, editor);
+    insertToCursor(toInsert + "\n", editor);
   } catch (error) {
     new Notice("Failed to insert timestamp, see console for details");
     console.error("Failed to insert timestamp", error);

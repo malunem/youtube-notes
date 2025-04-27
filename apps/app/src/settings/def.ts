@@ -78,7 +78,7 @@ const ynSettingsDefault = {
   loadStrategy: "eager",
   timestampTemplate: "\n- {{TIMESTAMP}} ",
   screenshotEmbedTemplate: "\n{{TITLE}}{{DURATION}}",
-  screenshotTemplate: "\n!{{SCREENSHOT}} \n{{TIMESTAMP}} ",
+  screenshotTemplate: "\n- {{TIMESTAMP}}\n\n!{{SCREENSHOT}}",
   insertBefore: false,
   timestampOffset: -1,
   biliDefaultQuality: BilibiliQuality.FHD,

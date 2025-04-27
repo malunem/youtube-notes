@@ -135,9 +135,7 @@ export async function saveScreenshot<T extends PlayerComponent>(
             screenshotFile as TFile,
             newNote.path,
             "",
-            screenshotEmbedTemplate
-              .replaceAll("{{TITLE}}", title)
-              .replaceAll("{{DURATION}}", humanizedDuration),
+            "",
           )
           .replace(/^!/, ""),
       },
