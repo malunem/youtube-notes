@@ -6,7 +6,7 @@
     "turbo": "latest"
   },
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build && ./copy-build.sh;",
     "build-docs": "turbo run build --filter=./apps/docs/",
     "dev": "turbo run dev"
   },
