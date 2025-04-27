@@ -77,13 +77,14 @@ const ynSettingsDefault = {
   enableSubtitle: false,
   loadStrategy: "eager",
   timestampTemplate: "\n- {{TIMESTAMP}} ",
-  screenshotEmbedTemplate: "{{TITLE}}{{DURATION}}|50",
-  screenshotTemplate: "\n- !{{SCREENSHOT}} {{TIMESTAMP}} ",
+  screenshotEmbedTemplate: "\n{{TITLE}}{{DURATION}}",
+  screenshotTemplate: "\n!{{SCREENSHOT}} \n{{TIMESTAMP}} ",
   insertBefore: false,
-  timestampOffset: 0,
+  timestampOffset: -1,
   biliDefaultQuality: BilibiliQuality.FHD,
   screenshotFormat: "image/webp",
   speedStep: 0.1,
+  screenshotQuality: 1,
 } satisfies YnSettingValues;
 
 function getDefaultDeviceName() {
