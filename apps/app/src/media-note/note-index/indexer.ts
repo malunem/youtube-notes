@@ -128,7 +128,7 @@ export class MediaNoteIndex extends Component {
     const note = this.findNote(mediaInfo);
     if (note) return note;
     const title = normalizeFilename(newNoteInfo.title);
-    const filename = `Media Note - ${title}`;
+    const filename = `Video Note - ${title}`;
     return await this.#createNewNote(
       filename,
       newNoteInfo.fm,
@@ -170,10 +170,10 @@ export class MediaNoteIndex extends Component {
   async #createNewNote(
     filename: string,
     fm: (sourcePath: string) => Record<string, any>,
-    sourcePath = "",
+    sourcePath: string,
   ) {
     const { fileManager } = this.app;
-    const folder = fileManager.getNewFileParent(sourcePath, filename);
+    const folder = fileManager.getNewFileParent(sourcePath || "Video Notes", filename);
     const newNote = await fileManager.createNewFile(
       folder,
       filename,
