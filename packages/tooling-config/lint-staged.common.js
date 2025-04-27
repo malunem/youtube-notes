@@ -50,7 +50,6 @@ const getEslintFixCmd = ({
   const cliFixType = [...(fixType ?? ["layout"])].filter(
     (type) => type.trim().length > 0,
   );
-  console.log(__dirname, __filename);
   const args = [
     cache ? "--cache" : "",
     fix ? "--fix" : "",

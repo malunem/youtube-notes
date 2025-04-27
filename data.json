@@ -1,0 +1,25 @@
+{
+  "defaultVolume": 80,
+  "devices": [],
+  "defaultYnLinkClick": {
+    "click": "split",
+    "alt": "window"
+  },
+  "linkHandler": {
+    "yn-embed": [],
+    "yn-url-audio": [],
+    "yn-url-video": [],
+    "yn-webpage": []
+  },
+  "speedStep": 0.1,
+  "loadStrategy": "eager",
+  "timestampTemplate": "\n- {{TIMESTAMP}} ",
+  "screenshotTemplate": "\n- !{{SCREENSHOT}} {{TIMESTAMP}} ",
+  "screenshotEmbedTemplate": "{{TITLE}}{{DURATION}}|50",
+  "insertBefore": false,
+  "timestampOffset": 0,
+  "biliDefaultQuality": 80,
+  "screenshotFormat": "image/webp",
+  "enableSubtitle": false,
+  "urlMappingData": []
+}

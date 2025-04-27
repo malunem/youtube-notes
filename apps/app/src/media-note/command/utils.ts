@@ -198,7 +198,6 @@ export function handleRepeatHotkey<Params extends any[]>(
         if (disbatched === null) {
           // console.debug("command evoked from keyboard");
         } else {
-          // console.log("command evoked from command");
           onTrigger?.(...params);
           disbatched = null;
         }

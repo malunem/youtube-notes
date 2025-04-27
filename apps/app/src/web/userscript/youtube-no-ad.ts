@@ -68,49 +68,10 @@ export default class YouTubePluginNoAd extends YouTubePlugin {
       skipAd();
       this.media.addEventListener("durationchange", skipAd);
     }
-    // waitForSelector<HTMLElement>(".video-ads.ytp-ad-module", this.app).then(
-    //   (adModule) => this.removePlayerAD(adModule),
-    // );
+
   }
 
-  // removePlayerAD(adModule: HTMLElement) {
-  //   const observer = new MutationObserver(() => this.skipAd());
-  //   // 漏网鱼
-  //   this.registerInterval(() => this.skipAd(), 500);
-  //   observer.observe(adModule, { childList: true, subtree: true });
-  //   console.log(`运行去除播放中的广告功能成功`);
-  // }
-  // skipAd() {
-  //   const video = this.media;
-  //   const skipButton =
-  //     this.moviePlayer.querySelector<HTMLElement>(`.ytp-ad-skip-button`) ||
-  //     this.moviePlayer.querySelector<HTMLElement>(`.ytp-ad-skip-button-modern`);
-  //   const shortAdMsg = this.moviePlayer.querySelector(
-  //     `.video-ads.ytp-ad-module .ytp-ad-player-overlay`,
-  //   );
 
-  //   if (!video) return;
-
-  //   if (skipButton) {
-  //     // 移动端静音有bug
-  //     if (window.location.href.includes("https://m.youtube.com/")) {
-  //       video.muted = true;
-  //     }
-  //     if (video.currentTime > 0.5) {
-  //       video.currentTime = video.duration; // 强制
-  //       console.log(`特殊账号跳过按钮广告~~~~~~~~~~~~~`);
-  //       return;
-  //     }
-  //     skipButton.click(); // PC
-  //     nativeTouch.call(skipButton); // Phone
-  //     console.log(`按钮跳过广告~~~~~~~~~~~~~`);
-  //   } else if (shortAdMsg) {
-  //     video.currentTime = video.duration;
-  //     console.log(`强制结束了该广告~~~~~~~~~~~~~`);
-  //   } else {
-  //     console.log(`######广告不存在######`);
-  //   }
-  // }
 }
 
 function nativeTouch(this: HTMLElement) {

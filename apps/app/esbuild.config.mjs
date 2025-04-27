@@ -148,7 +148,6 @@ function inlineCodePlugin(extraConfig) {
         { filter: /.*/, namespace },
         async ({ path: workerPath }) => {
           const code = await buildWorker(workerPath, extraConfig);
-          console.log("inline code built")
           return {
             contents: code,
             loader: "text",

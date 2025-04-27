@@ -4,11 +4,7 @@ import VimeoPlugin from "inline:./userscript/vimeo";
 import YouTubePluginNoAd from "inline:./userscript/youtube-no-ad";
 import type { MediaHost } from "../info/supported";
 
-// let youtube = YouTubePluginNoAd;
-// if (localStorage.getItem("YN_DEV_DISABLE_YTB_SKIP_AD") === "1") {
-//   console.log("DEV: skip ad in youtube webpage player disabled");
-//   youtube = YouTubePlugin;
-// }
+
 
 export const plugins = {
   bilibili: BilibiliPlugin,

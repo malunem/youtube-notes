@@ -28,18 +28,22 @@ export async function takeTimestamp<T extends PlayerComponent>(
     new Notice("Playback not started yet");
     return false;
   }
-  const { insertBefore, timestampTemplate: template } =
+  const { timestampTemplate: template } =
     playerComponent.plugin.settings.getState();
 
   try {
+    // Set cursor to end of note when editor is ready
+    
     insertTimestamp(
       { timestamp: genTimestamp(mediaNote.path) },
       {
         editor,
         template,
-        insertBefore,
+        insertBefore: false, // Always insert at the end
       },
     );
+    
+    editor.setCursor(editor.lineCount(), 0);
     return true;
   } catch (e) {
     new Notice("Failed to insert timestamp, see console for details");

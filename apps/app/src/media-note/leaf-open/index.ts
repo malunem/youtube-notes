@@ -261,15 +261,6 @@ export class LeafOpener extends Component {
   }
 
   async openNote(
-    file: TFile,
-    newLeaf?: "split",
-    direction?: SplitDirection,
-  ): Promise<{ file: TFile; editor: Editor }>;
-  async openNote(
-    file: TFile,
-    newLeaf?: PaneType | boolean,
-  ): Promise<{ file: TFile; editor: Editor }>;
-  async openNote(
     note: TFile,
     newLeaf: PaneType | boolean = "split",
     direction: SplitDirection = "vertical",
@@ -279,14 +270,28 @@ export class LeafOpener extends Component {
       if (opened.getMode() !== "source") {
         await opened.setState({ mode: "source" }, { history: false });
       }
+      // Focus the leaf
+      this.app.workspace.revealLeaf(opened.leaf);
+      // Set cursor to end of note when editor is ready
+      const editor = opened.editor;
+      const lastLine = editor.lineCount();
+      const lastLineLength = editor.getLine(lastLine).length;
+      editor.setCursor(lastLine, lastLineLength);
       return opened;
     }
 
     const leaf = this.app.workspace.getLeaf(newLeaf as any, direction);
     await leaf.openFile(note, { state: { mode: "source" } });
+    // Focus the leaf
+    this.app.workspace.revealLeaf(leaf);
+    const editor = (leaf.view as MarkdownView).editor;
+    // Set cursor to end of note when editor is ready
+    const lastLine = editor.lineCount();
+    const lastLineLength = editor.getLine(lastLine).length;
+    editor.setCursor(lastLine, lastLineLength);
     return {
       file: note,
-      editor: (leaf.view as MarkdownView).editor,
+      editor,
     };
   }
 

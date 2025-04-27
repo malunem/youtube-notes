@@ -161,12 +161,9 @@ export default class YouTubePlugin extends MediaPlugin {
     const container = this.moviePlayer;
     const observer = new MutationObserver(async () => {
       if (this.media.isConnected) return;
-      console.log("Re-attaching media");
       const lastest = await this.findMedia();
       if (!lastest) return;
-      console.log("found media");
       this.rehookMediaEl(lastest);
-      console.log("media hooked");
     });
     observer.observe(container, { childList: true, subtree: true });
     this.register(() => observer.disconnect());
@@ -193,7 +190,6 @@ export default class YouTubePlugin extends MediaPlugin {
   moviePlayer!: HTMLElement;
 
   async disableAutoPlay() {
-    console.log("Disabling autoplay...");
     const autoPlayButtonSelector =
       'button.ytp-button[data-tooltip-target-id="ytp-autonav-toggle-button"]';
     const autoPlayButton = await waitForSelector<HTMLButtonElement>(
@@ -214,7 +210,6 @@ export default class YouTubePlugin extends MediaPlugin {
       label.getAttribute("aria-checked") === "true";
 
     if (isAutoPlayEnabled()) {
-      console.log("Autoplay is enabled, disabling...");
       autoPlayButton.click();
       await new Promise<void>((resolve) => {
         const observer = new MutationObserver(() => {
@@ -223,7 +218,6 @@ export default class YouTubePlugin extends MediaPlugin {
             resolve();
           }
         });
-        console.log("Waiting for autoplay to be disabled...");
         observer.observe(label, { attributes: true });
       });
     }
@@ -238,7 +232,6 @@ export default class YouTubePlugin extends MediaPlugin {
       );
       let retries = 0;
       while (!this.isCinematicsMode() && retries++ < 5) {
-        console.log("Entering cinema mode");
         fsButton.click();
         await sleep(500);
       }

@@ -379,7 +379,6 @@ function timeoutNotice(timeout: number) {
   noticeWithOK({
     message: `Webpage not fully loaded within ${timeoutLabel}s. You can still try to play.`,
     onCancel() {
-      console.log("ignore webview timeout notice");
       localStorage.setItem(label, "1");
     },
     cancelText: "Don't show again",

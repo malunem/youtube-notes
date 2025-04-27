@@ -4,7 +4,6 @@ import { json } from "@/lib/json";
 declare const __USERSCRIPT__: string;
 
 process.once("document-start", () => {
-  console.log("preload.js");
   const scriptId = "monkey-patch-xmlhttprequest";
   const script =
     `try{` +

@@ -192,7 +192,7 @@ export class RecorderNote extends Component {
           {
             editor,
             template: this.settings.timestampTemplate,
-            insertBefore: this.settings.insertBefore,
+            insertBefore: false,
           },
         );
         this._recordedEditors.set(editor, view.file);

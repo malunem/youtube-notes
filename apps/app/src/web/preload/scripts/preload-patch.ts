@@ -16,14 +16,12 @@ const modified = new WeakMap<WebContents, PreloadHandler>();
 
 const handleEnable: PreloadEnableHandler = ({ sender: target }, script) => {
   const preloadHandler: PreloadHandler = (_evt, pref, params) => {
-    console.log("preloadHandler", params.preload, channels.preload);
     if (params.preload !== channels.preload) return;
     pref.preload = script;
   };
   if (!modified.has(target)) {
     target.on("will-attach-webview", preloadHandler);
     modified.set(target, preloadHandler);
-    console.log(`bili-req preload handler registered on ${target.id}`);
   }
 };
 
@@ -33,11 +31,8 @@ ipcMain.handle(channels.disable, () => {
     const handler = modified.get(target);
     if (!handler) continue;
     target.off("will-attach-webview", handler);
-    console.log(`bili-req preload handler removed on ${target.id}`);
   }
   ipcMain.removeHandler(channels.enable);
   ipcMain.removeHandler(channels.disable);
-  console.log("bili-req preload handler unloaded");
 });
 
-console.log("bili-req preload handler loaded");

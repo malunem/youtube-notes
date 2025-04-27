@@ -148,12 +148,10 @@ export default class BilibiliPlugin extends MediaPlugin {
 
   enterWebFullscreen() {
     if (this.isWebFullscreen()) {
-      console.log("Already in web fullscreen");
       return;
     }
     waitForSelector<HTMLDivElement>(".bpx-player-ctrl-web", this.player).then(
       (fsButton) => {
-        console.log("Clicking fullscreen button");
         fsButton.click();
       },
     );
@@ -165,7 +163,6 @@ export default class BilibiliPlugin extends MediaPlugin {
       ".bpx-player-toast-auto",
     );
     if (!toastContainer) {
-      console.log("toast container not found");
       return;
     }
 

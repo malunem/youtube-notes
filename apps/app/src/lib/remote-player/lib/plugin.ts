@@ -100,7 +100,6 @@ export default class MediaPlugin extends LifeCycle {
     );
     document.body.classList.add("yn-play-ready");
     this.controller.send("yn-play-ready", void 0);
-    console.log("sent play ready");
   }
 
   get media() {
@@ -112,9 +111,7 @@ export default class MediaPlugin extends LifeCycle {
 
   async onload() {
     this.#media = await this.findMedia();
-    console.log("found media");
     await Promise.all([this.enterWebFullscreen(), this.hookMediaEl()]);
-    console.log("media hooked");
   }
 
   enterWebFullscreen(): any {

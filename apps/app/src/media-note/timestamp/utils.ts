@@ -12,25 +12,24 @@ export function insertTimestamp(
   {
     template,
     editor,
-    insertBefore,
+    insertBefore: _insertBefore, // not used atm
   }: { template: string; editor: Editor; insertBefore?: boolean },
 ) {
   console.debug("insert timestamp", { timestamp, screenshot, template });
-  let toInsert = template.replace("{{TIMESTAMP}}", timestamp);
+  let toInsert = template.replace("{{TIMESTAMP}}", timestamp + "\n");
   if (screenshot) {
-    toInsert = toInsert.replace("{{SCREENSHOT}}", screenshot);
+    toInsert = toInsert.replace("{{SCREENSHOT}}", screenshot + "\n");
   }
   console.debug("content to insert", toInsert);
 
   try {
-    console.debug(
-      `inserting timestamp ${insertBefore ? "before" : "after"} cursor`,
-    );
-    if (insertBefore) {
-      insertBeforeCursor(toInsert, editor);
-    } else {
-      insertToCursor(toInsert, editor);
-    }
+    // Set cursor to end of note when editor is ready
+      // const editor = playerComponent?.plugin?.app?.workspace?.activeEditor?.editor
+    const lineCount = editor?.lineCount()
+    console.log({editor, lineCount})
+
+    editor.setCursor(editor.lineCount(), 0);
+    insertToCursor(toInsert, editor);
   } catch (error) {
     new Notice("Failed to insert timestamp, see console for details");
     console.error("Failed to insert timestamp", error);

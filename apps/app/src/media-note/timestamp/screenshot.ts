@@ -63,7 +63,6 @@ export async function saveScreenshot<T extends PlayerComponent>(
     media,
     app: { fileManager, vault },
     settings: {
-      insertBefore,
       screenshotTemplate,
       screenshotEmbedTemplate,
       screenshotQuality,
@@ -145,7 +144,7 @@ export async function saveScreenshot<T extends PlayerComponent>(
       {
         editor,
         template: screenshotTemplate,
-        insertBefore,
+        insertBefore: false,
       },
     );
     return true;

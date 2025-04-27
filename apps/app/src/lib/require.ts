@@ -7,7 +7,6 @@ export function getSession(appId: string) {
   const remote = require("@electron/remote");
   const partition = getPartition(appId);
   if (!partition) {
-    console.log("No partition, skip modifying session");
     return null;
   }
   return (remote.session as typeof Electron.Session).fromPartition(partition);

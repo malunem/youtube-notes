@@ -133,7 +133,6 @@ async function saveTranscript(
           new Notice(
             `Failed to save transcript: field \`${fieldNames.plural}\` in note ${note.path} is not an array of strings, you may need to fix it manually.`,
           );
-          console.log("EXISTING", value);
           return;
         }
       } else if (fieldNames.singular in fm) {

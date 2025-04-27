@@ -35,5 +35,4 @@ if (location.hostname.includes("bilibili.com")) {
     JSON.stringify(Codec.hevc),
   );
 
-  console.log("intercepter loaded");
 }

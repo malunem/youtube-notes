@@ -38,7 +38,6 @@ const obPlugin = (config = {}) => ({
         }
       }
 
-      console.log("build finished");
     });
   },
 });

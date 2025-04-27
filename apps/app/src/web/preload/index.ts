@@ -107,7 +107,6 @@ export class WebviewPreload extends Component {
         fs.writeFile(preloadLoaderPath, preloadLoaderCode, "utf-8"),
         fs.writeFile(preloadScriptPath, preloadScriptCode, "utf-8"),
       ]);
-      // console.log(preloadLoaderPath, preloadScriptPath);
       this.register(() => {
         fs.rm(preloadScriptPath, { force: true, maxRetries: 5 }).catch((e) =>
           console.warn("Failed to remove preload script", preloadScriptPath, e),
@@ -143,7 +142,6 @@ export class WebviewPreload extends Component {
       });
 
       this.register(disable);
-      console.log("yn-player-hack loaded");
       this.onReady();
     })().catch((e) => this.onError(e));
   }
